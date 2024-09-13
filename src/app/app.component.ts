@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { GrammarModule } from '../grammar/grammar.module';
+import { GrammarComponent } from '../grammar/grammar/grammar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, GrammarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
