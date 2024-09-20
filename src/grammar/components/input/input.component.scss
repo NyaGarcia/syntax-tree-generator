@@ -7,6 +7,10 @@
     .rule-container {
         align-items: center;
         display: flex;
+
+        mat-icon {
+            margin-left: 10px;
+        }
         
         mat-icon:hover {
             cursor: pointer;
