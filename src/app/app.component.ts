@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GrammarModule } from '../grammar/grammar.module';
-import { GrammarComponent } from '../grammar/grammar/grammar.component';
+import { GrammarComponent } from '../grammar/components/grammar/grammar.component';
 
 @Component({
   selector: 'app-root',

@@ -1,0 +1,27 @@
+
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+
+    .rule-container {
+        align-items: center;
+        display: flex;
+
+        mat-form-field {
+            margin: 10px;
+        }
+        
+        mat-icon:hover {
+            cursor: pointer;
+        }
+        
+    }
+
+    button {
+        margin-bottom: 20px;
+    }
+    
+}
+
+.alert {  background-color: #fed3d3;  color: #820000;  padding: 1rem;  margin-bottom: 1rem;}
