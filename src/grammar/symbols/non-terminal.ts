@@ -1,6 +1,10 @@
+import { FormattedProductionRule } from "../interfaces/production-rule.interface";
 import { GrammarSymbol } from "./grammar-symbol.interface";
+import { Rule } from "./rule";
 
 export class NonTerminal implements GrammarSymbol {
+    private nextProductionRulesIds: number[];
+    public type = "NonTerminal";
     
     constructor(public value: String) {}
     
@@ -11,6 +15,18 @@ export class NonTerminal implements GrammarSymbol {
 
     isNonTerminal(symbol: GrammarSymbol): boolean {
         return symbol instanceof NonTerminal;
+    }
+
+    contains(value: String) {
+        return this.value === value;
+    }
+
+    setNextProductionRulesIds(rules: number[]) {
+        this.nextProductionRulesIds = rules;
+    }
+
+    getNextProductionRulesIds() {
+        return this.nextProductionRulesIds;
     }
 
 }

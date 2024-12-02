@@ -1,5 +1,10 @@
 <div class="container">
-  <h1>Bienvenidos al Generador de Árboles Sintácticos</h1>
-  <h3>Versión Beta</h3>
-  <app-grammar></app-grammar>
+  <div>
+    <h1>Herramienta para el Estudio de Gramáticas Formales</h1>
+    <h3>Bienvenidos a la Versión Beta</h3>
+    <app-grammar (generateTree)="assignGenerateTree($event)"></app-grammar>
+  </div>
+  <div>
+    <app-tree *ngIf="generateTree"></app-tree>  
+  </div>
 </div>

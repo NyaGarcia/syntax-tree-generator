@@ -1,0 +1,23 @@
+.d3-chart {
+  width: 700px;
+  min-height:800px;
+}
+
+:host ::ng-deep svg{
+  display: block;
+  margin: auto;
+}
+
+:host ::ng-deep .node circle{
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+:host ::ng-deep .node text{ font: 12px sans-serif; }
+
+:host ::ng-deep .link{
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}

@@ -1,6 +1,6 @@
 <div class="dropdown">
     <app-help-dropdown></app-help-dropdown>
 </div>
-<app-input></app-input>
-<p>O sube el fichero de tu gramática</p>
-<app-file-upload></app-file-upload>
+<app-input (formValue)="onFormEvent($event)"></app-input>
+<!-- <p>O sube el fichero de tu gramática</p> -->
+<!-- <app-file-upload></app-file-upload> -->

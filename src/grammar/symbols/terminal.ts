@@ -1,6 +1,7 @@
 import { GrammarSymbol } from "./grammar-symbol.interface";
 
 export class Terminal implements GrammarSymbol {
+    public type = "Terminal";
     
     constructor(public value: String) {}
     

@@ -21,9 +21,15 @@
                 <mat-form-field>
                     <input matInput formControlName="leftProductionRule" placeholder="S" maxlength="1">
                 </mat-form-field>
+                <!-- <div *ngIf="rule.controls['leftProductionRule'].invalid && (rule.controls['leftProductionRule'].dirty || rule.controls['leftProductionRule'].touched)" class="alert">
+                    <div *ngIf="rule.controls['leftProductionRule'].hasError('required')">La parte izquierda de la regla no puede estar vacía</div>
+                    <div *ngIf="rule.controls['leftProductionRule'].hasError('pattern')">
+                      La parte izquierda de la regla solo puede contener símbolos no terminales
+                    </div>
+                </div> -->
                 <mat-icon aria-hidden="false" aria-label="Arrow right icon" fontIcon="arrow_right_alt"></mat-icon>
                 <mat-form-field>
-                    <input matInput formControlName="rightProductionRule" placeholder="Aa" (keyup.enter)="addRuleInput()">
+                    <input matInput formControlName="rightProductionRule" placeholder="ε" (keyup.enter)="addRuleInput()">
                 </mat-form-field>
                     <mat-icon *ngIf="!isFirst" (click)="removeRuleInput(i)" aria-hidden="false" aria-label="Garbage bin icon" fontIcon="cancel"></mat-icon>
             </div>            
@@ -31,7 +37,6 @@
     </div>
 </form>
 <button mat-raised-button (click)="addRuleInput()">Haz click aquí o presiona la tecla "Enter" para añadir una nueva regla</button>
-<div>
-    <button mat-raised-button color="primary" (click)="validateGrammar()">Validar</button>
-</div>
+</div><div>
+    <button [disabled]="!grammarForm.valid" mat-raised-button color="primary" (click)="emitFormValue()">Generar Árbol</button>
 </div>
