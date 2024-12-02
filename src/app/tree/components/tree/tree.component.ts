@@ -1,13 +1,13 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef,  ViewChild } from '@angular/core';
 import { TreeLayout,hierarchy } from 'd3';
 import * as d3 from 'd3';
 import { TreeService } from '../../tree.service';
 import { OptionsComponent } from "../options/options.component";
 import { Rule } from '../../../../grammar/symbols/rule';
 import { GrammarSymbol } from '../../../../grammar/symbols/grammar-symbol.interface';
-import { NonTerminal } from '../../../../grammar/symbols/non-terminal';
 import { TreeNode } from '../../../utils/tree-node';
 import { CommonModule } from '@angular/common';
+import { v7 } from 'uuid';
 
 interface HierarchyDatum {
   name: string;
@@ -156,6 +156,8 @@ export class TreeComponent {
     newNode.depth = currentNode.depth + 1;
     newNode.height = currentNode.height - 1;
     newNode.data = symbol;
+    // generate a new unix uuid v7
+    newNode.id = v7();
 
     currentNode.children = [...currentNode.children, newNode];
     currentNode.data.children = [...currentNode.data.children, newNode];
@@ -178,7 +180,7 @@ export class TreeComponent {
 
     this.tree = d3.tree<HierarchyDatum>().size([this.width, this.height]);
 
-    this.root = d3.hierarchy(this.treeService.getCurrentNode(), function (d: any) {
+    this.root = d3.hierarchy(this.treeService.getCurrentNode(),  (d: any)=> {
       return d.children;
     });
     this.root.x0 = this.width / 2;
@@ -200,7 +202,6 @@ export class TreeComponent {
   }
 
   updateNode(source: any) {
-    let i = 0;
     // Assigns the x and y position for the nodes
     this.treeData = this.tree(this.root);
 
@@ -208,26 +209,25 @@ export class TreeComponent {
     const nodes = this.treeData.descendants(),
       links = this.treeData.descendants().slice(1);
 
-    console.log(this.treeData.descendants());
+    console.log(links);
 
     // Normalize for fixed-depth
-    nodes.forEach(function (d: any) {
+    nodes.forEach( (d: any)=> {
         d.y = d.depth * 100;
     });
 
     // **************** Nodes Section ****************
 
     // Update the nodes...
-    const node = this.svg.selectAll('g.node').data(nodes, function (d: any) {
-      return d.id || (d.id = ++i);
-    });
+    console.log(this.svg);
+    const node = this.svg.selectAll('g.node').data(nodes,  (d: any)=> d.id );
 
     // Enter any new nodes at the parent's previous position.
     const nodeEnter = node
       .enter()
       .append('g')
       .attr('class', 'node')
-      .attr('transform', function (d: any) {
+      .attr('transform',  (d: any)=> {
         return 'translate(' + source.x0 + ',' + source.y0 + ')';
       })
       .on('click', this.click);
@@ -237,7 +237,7 @@ export class TreeComponent {
       .append('circle')
       .attr('class', 'node')
       .attr('r', 1e-6)
-      .style('fill', function (d: any) {
+      .style('fill',  (d: any)=> {
         return d._children ? 'lightsteelblue' : '#fff';
       });
 
@@ -245,13 +245,13 @@ export class TreeComponent {
     nodeEnter
       .append('text')
       .attr('dy', '.35em')
-      .attr('x', function (d: any) {
+      .attr('x',  (d: any)=> {
         return d.children || d._children ? -13 : 13;
       })
-      .attr('text-anchor', function (d: any) {
+      .attr('text-anchor',  (d: any)=> {
         return d.children || d._children ? 'end' : 'start';
       })
-      .text(function (d: any) {
+      .text( (d: any)=> {
         return d.data.value;
       });
 
@@ -262,7 +262,7 @@ export class TreeComponent {
     nodeUpdate
       .transition()
       .duration(this.duration)
-      .attr('transform', function (d: any) {
+      .attr('transform',  (d: any)=> {
         return 'translate(' + d.x + ',' + d.y + ')';
       });
 
@@ -270,7 +270,7 @@ export class TreeComponent {
     nodeUpdate
       .select('circle.node')
       .attr('r', 10)
-      .style('fill', function (d: any) {
+      .style('fill',  (d: any)=> {
         return d._children ? 'lightsteelblue' : '#fff';
       })
       .attr('cursor', 'pointer');
@@ -280,7 +280,7 @@ export class TreeComponent {
       .exit()
       .transition()
       .duration(this.duration)
-      .attr('transform', function (d: any) {
+      .attr('transform',  (d: any)=> {
         return 'translate(' + source.x + ',' + source.y + ')';
       })
       .remove();
@@ -294,7 +294,7 @@ export class TreeComponent {
     // **************** Links Section ****************
 
     // Update the links...
-    const link = this.svg.selectAll('path.link').data(links, function (d: any) {
+    const link = this.svg.selectAll('path.link').data(links,  (d: any)=> {
       return d.id;
     });
 
@@ -303,9 +303,9 @@ export class TreeComponent {
       .enter()
       .insert('path', 'g')
       .attr('class', 'link')
-      .attr('d', function (d: any) {
+      .attr('d',  (d: any)=> {
         const o = { x: source.x0, y: source.y0 };
-        return diagonal(o, o);
+        return this.diagonal(o, o);
       });
 
     // Update
@@ -315,35 +315,29 @@ export class TreeComponent {
     linkUpdate
       .transition()
       .duration(this.duration)
-      .attr('d', function (d: any) {
-        return diagonal(d, d.parent);
+      .attr('d',  (d: any)=> {
+        return this.diagonal(d, d.parent);
       });
 
     // Remove any existing links
-    const linkExit = link
+    link
       .exit()
       .transition()
       .duration(this.duration)
-      .attr('d', function (d: any) {
+      .attr('d',  (d: any)=> {
         const o = { x: source.x, y: source.y };
+        return this.diagonal(o, o);
       })
       .remove();
 
     // Store the old positions for transition.
-    nodes.forEach(function (d: any) {
+    nodes.forEach( (d: any)=> {
       d.x0 = d.x;
       d.y0 = d.y;
     });
 
     // Create a curved (diagonal) path from parent to the child nodes
-    function diagonal(s: any, d: any) {
-      const path = `M ${s.x} ${s.y}
-        C ${(s.x + d.x) / 2} ${s.y},
-          ${(s.x + d.x) / 2} ${d.y},
-          ${d.x} ${d.y}`;
-
-      return path;
-    }
+   
   }
 
   // Toggle children on click
@@ -353,10 +347,20 @@ export class TreeComponent {
     if (d.children) {
       d._children = d.children;
       d.children = null;
+    } else if(!d.children && !d._children) {
+      return;
     } else {
       d.children = d._children;
       d._children = null;
     }
     this.updateNode(d);
   };
+   diagonal(s: any, d: any) {
+    const path = `M ${s.x} ${s.y}
+      C ${(s.x + d.x) / 2} ${s.y},
+        ${(s.x + d.x) / 2} ${d.y},
+        ${d.x} ${d.y}`;
+
+    return path;
+  }
 }
