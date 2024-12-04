@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, QueryList, ViewChildren } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -29,15 +29,21 @@ import { CommonModule } from '@angular/common';
 export class InputComponent {
   grammarForm: FormGroup;
   ruleGroup: FormArray;
+  nextRuleId:number = 0;
 
   @Output() formValue: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
+  @ViewChildren('focusInput') focusInput: QueryList<ElementRef>;;
+
+  constructor(private cdRef:ChangeDetectorRef) {
     this.ruleGroup = new FormArray([this.newRuleFormGroup]);
 
     this.grammarForm = new FormGroup({
       rules: this.ruleGroup,
     });
+  }
+  ngAfterViewInit() {
+    this.focusInput.changes.subscribe((list: QueryList <ElementRef>) => this.focusNextInput(list));
   }
 
   emitFormValue() {
@@ -46,6 +52,7 @@ export class InputComponent {
 
   addRuleInput() {
     this.ruleGroup.push(this.newRuleFormGroup);
+    this.nextRuleId = this.nextRuleId +1;
   }
 
   removeRuleInput(index: number) {
@@ -68,5 +75,10 @@ export class InputComponent {
 
   get ruleGroupControls(): FormGroup[] {
     return this.ruleGroup.controls as FormGroup[];
+  }
+
+  private focusNextInput(list: QueryList<ElementRef>) {
+    list.toArray()[this.nextRuleId].nativeElement.focus();
+    this.cdRef.detectChanges();
   }
 }

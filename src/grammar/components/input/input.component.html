@@ -19,7 +19,7 @@
         <div [formGroup]="rule" *ngFor="let rule of ruleGroupControls; let i = index; first as isFirst">
             <div class="rule-container">
                 <mat-form-field>
-                    <input matInput formControlName="leftProductionRule" placeholder="S" maxlength="1">
+                    <input #focusInput matInput formControlName="leftProductionRule" placeholder="S" maxlength="1">
                 </mat-form-field>
                 <!-- <div *ngIf="rule.controls['leftProductionRule'].invalid && (rule.controls['leftProductionRule'].dirty || rule.controls['leftProductionRule'].touched)" class="alert">
                     <div *ngIf="rule.controls['leftProductionRule'].hasError('required')">La parte izquierda de la regla no puede estar vacía</div>
