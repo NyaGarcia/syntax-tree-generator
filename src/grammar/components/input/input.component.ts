@@ -59,10 +59,6 @@ export class InputComponent {
     this.ruleGroup.removeAt(index);
   }
 
-  validateGrammar() {
-    console.log(this.grammarForm.value);
-  }
-
   get newRuleFormGroup(): FormGroup {
     return new FormGroup({
       leftProductionRule: new FormControl('', [
