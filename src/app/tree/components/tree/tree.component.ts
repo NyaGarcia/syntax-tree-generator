@@ -8,6 +8,7 @@ import { GrammarSymbol } from '../../../../grammar/symbols/grammar-symbol.interf
 import { TreeNode } from '../../../utils/tree-node';
 import { CommonModule } from '@angular/common';
 import { v7 } from 'uuid';
+import { MatButtonModule } from '@angular/material/button';
 
 interface HierarchyDatum {
   name: string;
@@ -15,82 +16,10 @@ interface HierarchyDatum {
   children?: Array<HierarchyDatum>;
 }
 
-const data: HierarchyDatum = {
-  name: 'A1',
-  value: 100,
-  children: [
-    {
-      name: 'B1',
-      value: 100,
-      children: [
-        {
-          name: 'C1',
-          value: 100,
-          children: undefined,
-        },
-        {
-          name: 'C2',
-          value: 300,
-          children: [
-            {
-              name: 'D1',
-              value: 100,
-              children: undefined,
-            },
-            {
-              name: 'D2',
-              value: 300,
-              children: undefined,
-            },
-          ],
-        },
-        {
-          name: 'C3',
-          value: 200,
-          children: undefined,
-        },
-      ],
-    },
-    {
-      name: 'B2',
-      value: 200,
-      children: [
-        {
-          name: 'C4',
-          value: 100,
-          children: undefined,
-        },
-        {
-          name: 'C5',
-          value: 300,
-          children: undefined,
-        },
-        {
-          name: 'C6',
-          value: 200,
-          children: [
-            {
-              name: 'D3',
-              value: 100,
-              children: undefined,
-            },
-            {
-              name: 'D4',
-              value: 300,
-              children: undefined,
-            },
-          ],
-        },
-      ],
-    },
-  ],
-};
-
-
 @Component({
   selector: 'app-tree',
   standalone: true,
-  imports: [OptionsComponent, CommonModule],
+  imports: [OptionsComponent, CommonModule, MatButtonModule],
   templateUrl: './tree.component.html',
   styleUrl: './tree.component.scss',
 })
@@ -130,18 +59,16 @@ export class TreeComponent {
 
   expandNode(rule: Rule) {
     const currentNode = this.treeService.getCurrentNode();
-
+    
     if(!currentNode.children){
       currentNode.children = [];
       currentNode.data.children = [];
     }
-    
+  
     const nodes = rule.getSymbols().map(symbol => this.createNode(symbol, currentNode));
 
     this.treeService.updateTreeStatus(nodes);
     
-    console.log("NEW NODE");
-    console.log(currentNode);
     this.updateNode(currentNode);
     this.updateOptions();
   }
@@ -180,9 +107,10 @@ export class TreeComponent {
 
     this.tree = d3.tree<HierarchyDatum>().size([this.width, this.height]);
 
-    this.root = d3.hierarchy(this.treeService.getCurrentNode(),  (d: any)=> {
+    this.root = d3.hierarchy(this.treeService.getInitialSymbol(),  (d: any)=> {
       return d.children;
     });
+
     this.root.x0 = this.width / 2;
     this.root.y0 = 0;
 
@@ -209,8 +137,6 @@ export class TreeComponent {
     const nodes = this.treeData.descendants(),
       links = this.treeData.descendants().slice(1);
 
-    console.log(links);
-
     // Normalize for fixed-depth
     nodes.forEach( (d: any)=> {
         d.y = d.depth * 100;
@@ -219,7 +145,6 @@ export class TreeComponent {
     // **************** Nodes Section ****************
 
     // Update the nodes...
-    console.log(this.svg);
     const node = this.svg.selectAll('g.node').data(nodes,  (d: any)=> d.id );
 
     // Enter any new nodes at the parent's previous position.
@@ -342,8 +267,6 @@ export class TreeComponent {
 
   // Toggle children on click
   click = (event: any, d: any) => {
-    console.log("click");
-    console.log(d);
     if (d.children) {
       d._children = d.children;
       d.children = null;
@@ -355,12 +278,21 @@ export class TreeComponent {
     }
     this.updateNode(d);
   };
-   diagonal(s: any, d: any) {
+
+  private diagonal(s: any, d: any) {
     const path = `M ${s.x} ${s.y}
       C ${(s.x + d.x) / 2} ${s.y},
         ${(s.x + d.x) / 2} ${d.y},
         ${d.x} ${d.y}`;
 
     return path;
+  }
+
+  clear() {
+    const nativeElement = this.chartContainer.nativeElement;
+    nativeElement.removeChild(nativeElement.firstChild);
+    this.root = null;
+    this.treeService.clear();
+    this.render();
   }
 }

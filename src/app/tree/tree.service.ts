@@ -14,18 +14,11 @@ export class TreeService {
   private currentNode: any;
   private expandableNodes: Stack<TreeNode<GrammarSymbol>>;
 
-  constructor() {
-    this.expandableNodes = new Stack();
-  }
+  constructor() {}
 
   loadGrammar(grammar: Grammar) {
     this.grammar = grammar;
-    this.createTree();
-  }
-
-  createTree() {
-    const root = {symbol: this.grammar.getInitialSymbol()};
-    this.currentNode = this.grammar.getInitialSymbol();
+    this.initializeService();
   }
 
   getCurrentNode() {
@@ -48,9 +41,15 @@ export class TreeService {
     this.updateCurrentNode();
   }
 
+  getInitialSymbol() {
+    const initialSymbol = this.grammar.getInitialSymbol();
+    const nonTerminal = new NonTerminal(initialSymbol.value);
+    nonTerminal.setNextProductionRulesIds(initialSymbol.getNextProductionRulesIds());
+    return nonTerminal;
+  }
+
   getOptions(): Rule[] {
     if(this.currentNode && this.currentNode.data instanceof NonTerminal) {
-
       const ids = this.currentNode.data.getNextProductionRulesIds();
       return ids.map((id: number) => this.grammar.getRules()[id]);
     }
@@ -59,8 +58,16 @@ export class TreeService {
     
   }
 
+  clear() {
+    this.initializeService();
+  }
+
   private updateCurrentNode() {
     this.currentNode = this.expandableNodes.pop();
-    console.log(this.currentNode);
+  }
+
+  private initializeService() {
+    this.currentNode = null;
+    this.expandableNodes = new Stack();
   }
 }
