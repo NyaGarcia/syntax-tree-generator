@@ -1,6 +1,4 @@
-import { FormattedProductionRule } from "../interfaces/production-rule.interface";
 import { GrammarSymbol } from "./grammar-symbol.interface";
-import { Rule } from "./rule";
 
 export class NonTerminal implements GrammarSymbol {
     private nextProductionRulesIds: number[];
