@@ -1,42 +1,55 @@
-<!-- <div class="form-container">
-<mat-form-field>
-    <mat-label>Introduce la gramática</mat-label>
-    <textarea cdkTextareaAutosize matInput [formControl]="grammar"></textarea>
-    <div
-  *ngIf="grammar.invalid && (grammar.dirty || grammar.touched)"
-  class="alert"
->
-  <div *ngIf="grammar.hasError('required')">La gramática no puede estar vacía</div>
-  <div *ngIf="grammar.hasError('pattern')">
-    La gramática no es válida
-  </div>
-</div>
-</mat-form-field>
-</div> -->
 <div class="form-container">
-<form [formGroup]="grammarForm">
+  <form [formGroup]="grammarForm">
     <div formArrayName="rules">
-        <div [formGroup]="rule" *ngFor="let rule of ruleGroupControls; let i = index; first as isFirst">
-            <div class="rule-container">
-                <mat-form-field>
-                    <input #focusInput matInput formControlName="leftProductionRule" placeholder="S" maxlength="1">
-                </mat-form-field>
-                <!-- <div *ngIf="rule.controls['leftProductionRule'].invalid && (rule.controls['leftProductionRule'].dirty || rule.controls['leftProductionRule'].touched)" class="alert">
-                    <div *ngIf="rule.controls['leftProductionRule'].hasError('required')">La parte izquierda de la regla no puede estar vacía</div>
-                    <div *ngIf="rule.controls['leftProductionRule'].hasError('pattern')">
-                      La parte izquierda de la regla solo puede contener símbolos no terminales
-                    </div>
-                </div> -->
-                <mat-icon aria-hidden="false" aria-label="Arrow right icon" fontIcon="arrow_right_alt"></mat-icon>
-                <mat-form-field>
-                    <input matInput formControlName="rightProductionRule" placeholder="ε" (keyup.enter)="addRuleInput()">
-                </mat-form-field>
-                    <mat-icon *ngIf="!isFirst" (click)="removeRuleInput(i)" aria-hidden="false" aria-label="Garbage bin icon" fontIcon="cancel"></mat-icon>
-            </div>            
+      <div
+        [formGroup]="rule"
+        *ngFor="let rule of ruleGroupControls; let i = index; first as isFirst"
+      >
+        <div class="rule-container">
+          <mat-form-field>
+            <input
+              #focusInput
+              matInput
+              formControlName="leftProductionRule"
+              placeholder="S"
+              maxlength="1"
+            />
+          </mat-form-field>
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Arrow right icon"
+            fontIcon="arrow_right_alt"
+          ></mat-icon>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="rightProductionRule"
+              placeholder="ε"
+              (keyup.enter)="addRuleInput()"
+            />
+          </mat-form-field>
+          <mat-icon
+            *ngIf="!isFirst"
+            (click)="removeRuleInput(i)"
+            aria-hidden="false"
+            aria-label="Garbage bin icon"
+            fontIcon="cancel"
+          ></mat-icon>
         </div>
+      </div>
     </div>
-</form>
-<button mat-raised-button (click)="addRuleInput()">Haz click aquí o presiona la tecla "Enter" para añadir una nueva regla</button>
-</div><div>
-    <button [disabled]="!grammarForm.valid" mat-raised-button color="primary" (click)="emitFormValue()">Generar Árbol</button>
+  </form>
+  <button mat-raised-button (click)="addRuleInput()">
+    Haz click aquí o presiona la tecla "Enter" para añadir una nueva regla
+  </button>
+</div>
+<div>
+  <button
+    [disabled]="!grammarForm.valid"
+    mat-raised-button
+    color="primary"
+    (click)="emitFormValue()"
+  >
+    Generar Árbol
+  </button>
 </div>
