@@ -1,12 +1,12 @@
 import { Injectable, signal } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DarkModeService {
   darkModeSignal = signal<boolean>(true);
 
-  constructor() { }
+  constructor() {}
 
   toggleDarkMode() {
     this.darkModeSignal.update((value) => (value === true ? false : true));

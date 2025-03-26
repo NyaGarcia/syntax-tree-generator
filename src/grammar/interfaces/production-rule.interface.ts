@@ -1,13 +1,18 @@
-import { NonTerminal } from "../symbols/non-terminal";
-import { SymbolList } from "../symbols/symbol-list";
-import { Terminal } from "../symbols/terminal";
+import { NonTerminal } from '../symbols/non-terminal';
+import { Terminal } from '../symbols/terminal';
+
+export interface UnformattedGrammar {
+  terminals: string[];
+  nonTerminals: string[];
+  productionRules: ProductionRule[];
+}
 
 export interface ProductionRule {
-    leftProductionRule: string;
-    rightProductionRule: string;
+  leftProductionRule: string;
+  rightProductionRule: string[];
 }
 
 export interface FormattedProductionRule {
-    leftProductionRule: NonTerminal;
-    rightProductionRule: (NonTerminal | Terminal)[];
+  leftProductionRule: NonTerminal;
+  rightProductionRule: (NonTerminal | Terminal)[];
 }

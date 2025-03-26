@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "d3": "^7.9.0",
+    "ng-multiselect-dropdown": "^1.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "uuid": "^11.0.3",

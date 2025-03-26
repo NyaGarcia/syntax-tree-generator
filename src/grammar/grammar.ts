@@ -1,6 +1,7 @@
 import {
   FormattedProductionRule,
   ProductionRule,
+  UnformattedGrammar,
 } from './interfaces/production-rule.interface';
 import { NonTerminal } from './symbols/non-terminal';
 import { Rule } from './symbols/rule';
@@ -11,10 +12,10 @@ export class Grammar {
   private terminals: Terminal[] = [];
   private nonTerminals: NonTerminal[] = [];
   private rules: Rule[] = [];
-  private grammar: ProductionRule[];
+  private productionRules: ProductionRule[];
   private initialSymbol: NonTerminal;
 
-  public constructor(value: any) {
+  public constructor(value: UnformattedGrammar) {
     this.initGrammar(value);
   }
 
@@ -34,12 +35,13 @@ export class Grammar {
     return this.initialSymbol;
   }
 
-  private initGrammar(grammar: ProductionRule[]) {
-    this.grammar = grammar;
+  private initGrammar(grammar: UnformattedGrammar) {
+    this.productionRules = grammar.productionRules;
 
-    this.addNonTerminals();
+    this.addNonTerminals(grammar.nonTerminals);
+    //this.addTerminals(grammar.terminals);
 
-    grammar
+    grammar.productionRules
       .map((value) => this.formatGrammar(value))
       .map((value) => this.createRule(value));
 
@@ -100,10 +102,10 @@ export class Grammar {
   private setSymbolsNextProductionRules(rule: Rule, nonTerminal: NonTerminal) {
     const symbols = rule.getSymbols();
     symbols.forEach((symbol, i) => {
-      if(symbol instanceof NonTerminal && symbol.equals(nonTerminal)) {
+      if (symbol instanceof NonTerminal && symbol.equals(nonTerminal)) {
         symbols[i] = nonTerminal;
       }
-    })
+    });
   }
 
   private getNextProductionRules(nonTerminal: NonTerminal) {
@@ -112,10 +114,17 @@ export class Grammar {
     );
   }
 
-  private addNonTerminals() {
-    const filteredGrammar = this.filterDuplicates();
-    this.nonTerminals = filteredGrammar.map(
-      ({ leftProductionRule }) => new NonTerminal(leftProductionRule)
+  private addNonTerminals(nonTerminals: string[]) {
+    const filteredNonTerminals = this.filterDuplicates(nonTerminals);
+    this.nonTerminals = filteredNonTerminals.map(
+      (nonTerminal) => new NonTerminal(nonTerminal)
+    );
+  }
+
+  private addTerminals(terminals: string[]) {
+    const filteredTerminals = this.filterDuplicates(terminals);
+    this.terminals = filteredTerminals.map(
+      (terminal) => new Terminal(terminal)
     );
   }
 
@@ -127,11 +136,7 @@ export class Grammar {
     this.initialSymbol = this.nonTerminals[0];
   }
 
-  private filterDuplicates() {
-    return [
-      ...new Map(
-        this.grammar.map((rule) => [rule.leftProductionRule, rule])
-      ).values(),
-    ];
+  private filterDuplicates(symbols: string[]) {
+    return [...new Set(symbols)];
   }
 }

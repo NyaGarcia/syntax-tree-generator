@@ -1,54 +1,55 @@
-<div class="form-container">
-  <form [formGroup]="grammarForm">
-    <div formArrayName="rules">
-      <div
-        [formGroup]="rule"
-        *ngFor="let rule of ruleGroupControls; let i = index; first as isFirst"
-      >
-        <div class="rule-container">
-          <mat-form-field>
-            <input
-              #focusInput
-              matInput
-              formControlName="leftProductionRule"
-              placeholder="S"
-              maxlength="1"
-            />
-          </mat-form-field>
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Arrow right icon"
-            fontIcon="arrow_right_alt"
-          ></mat-icon>
-          <mat-form-field>
-            <input
-              matInput
-              formControlName="rightProductionRule"
-              placeholder="ε"
-              (keyup.enter)="addRuleInput()"
-            />
-          </mat-form-field>
-          <mat-icon
-            *ngIf="!isFirst"
-            (click)="removeRuleInput(i)"
-            aria-hidden="false"
-            aria-label="Garbage bin icon"
-            fontIcon="cancel"
-          ></mat-icon>
-        </div>
-      </div>
-    </div>
-  </form>
-  <button mat-raised-button (click)="addRuleInput()">
-    Haz click aquí o presiona la tecla "Enter" para añadir una nueva regla
-  </button>
+<div class="dropdown-container">
+  <ng-multiselect-dropdown
+    [placeholder]="'Selecciona un no terminal'"
+    [settings]="leftProductionRuleDropdownSettings"
+    [data]="dropdownNonTerminals"
+    [(ngModel)]="leftProductionRule"
+  >
+  </ng-multiselect-dropdown>
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Arrow right icon"
+    fontIcon="arrow_right_alt"
+  ></mat-icon>
+  <ng-multiselect-dropdown
+    [placeholder]="'Selecciona los símbolos'"
+    [settings]="rightProductionRuleDropdownSettings"
+    [data]="dropdownSymbols"
+    [(ngModel)]="rightProductionRule"
+  >
+  </ng-multiselect-dropdown>
+  <button mat-raised-button (click)="addRuleInput()">+</button>
+</div>
+<div class="rules-container">
+  @for (rule of productionRules; track $index) {
+  <div class="rule-container">
+    <span>{{ rule.leftProductionRule }}</span>
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Arrow right icon"
+      fontIcon="arrow_right_alt"
+      class="arrow"
+    ></mat-icon>
+    <span
+      >@for (symbol of rule.rightProductionRule; track $index) {
+      {{ symbol }}
+      }</span
+    >
+    <mat-icon
+      (click)="removeRuleInput($index)"
+      aria-hidden="false"
+      aria-label="Garbage bin icon"
+      fontIcon="cancel"
+    ></mat-icon>
+  </div>
+  }
 </div>
 <div>
   <button
-    [disabled]="!grammarForm.valid"
+    [disabled]="productionRules.length === 0"
     mat-raised-button
     color="primary"
-    (click)="emitFormValue()"
+    (click)="submit()"
   >
     Generar Árbol
   </button>

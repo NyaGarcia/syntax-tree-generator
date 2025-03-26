@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { DarkModeComponent } from './dark-mode/dark-mode.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DarkModeService } from './dark-mode/dark-mode.service';
+import { Grammar } from '../grammar/grammar';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +22,11 @@ import { DarkModeService } from './dark-mode/dark-mode.service';
 })
 export class AppComponent {
   title = 'syntax-tree-generator';
-  generateTree = false;
+  grammar: Grammar;
 
   constructor(public darkModeService: DarkModeService) {}
 
-  assignGenerateTree(value: boolean) {
-    this.generateTree = value;
+  generateTree(value: Grammar) {
+    this.grammar = value;
   }
 }
