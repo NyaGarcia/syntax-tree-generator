@@ -12,4 +12,8 @@ mat-toolbar {
     justify-content: center;
     align-items: flex-start;
     padding-top: 70px;
+
+    .input-container {
+        display: flex;
+    }
 }

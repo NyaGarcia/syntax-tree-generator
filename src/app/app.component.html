@@ -7,14 +7,12 @@
   </mat-toolbar>
   <div class="container">
     <div>
-      <div>
-        <h1>Herramienta para el Estudio de Gramáticas Formales</h1>
-        <h3>Bienvenidos a la Versión Beta</h3>
-        <app-grammar (grammar)="generateTree($event)"></app-grammar>
-      </div>
-      <div>
-        <app-tree *ngIf="grammar" [grammar]="grammar"></app-tree>
-      </div>
+      <h1>Herramienta para el Estudio de Gramáticas Formales</h1>
+      <h3>Bienvenidos a la Versión Beta</h3>
+      <app-grammar (grammar)="generateTree($event)"></app-grammar>
+    </div>
+    <div>
+      <app-tree *ngIf="grammar" [grammar]="grammar"></app-tree>
     </div>
   </div>
 </div>
