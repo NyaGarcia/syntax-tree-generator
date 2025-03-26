@@ -1,6 +1,9 @@
-<div>
-    <app-options (optionEmitter)="expandNode($event)" [options]="options"></app-options>
-    <div class="d3-chart container tree" #chart></div>
-    <button mat-raised-button (click)="clear()">Reiniciar árbol</button>
-    <p *ngIf="options.length === 0">Fin de la derivación</p>
+<div class="tree-container">
+  <app-options
+    (optionEmitter)="expandNode($event)"
+    [options]="options"
+  ></app-options>
+  <div class="d3-chart container tree" #chart></div>
+  <span *ngIf="options.length === 0">Fin de la derivación</span>
+  <button mat-raised-button (click)="clear()">Reiniciar árbol</button>
 </div>
