@@ -27,4 +27,14 @@ $dark-theme: mat.define-dark-theme((
     }
   }
 
+  svg {
+    circle.node {
+      stroke: #e91e63;
+    }
+
+    .node text {
+      fill: #fff;
+    }
+  }
+
 }
