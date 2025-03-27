@@ -11,6 +11,8 @@ import { v7 } from 'uuid';
 import { MatButtonModule } from '@angular/material/button';
 import { Grammar } from '../../../../grammar/grammar';
 
+import { MatIconModule } from '@angular/material/icon';
+
 interface HierarchyDatum {
   name: string;
   value: number;
@@ -20,7 +22,7 @@ interface HierarchyDatum {
 @Component({
   selector: 'app-tree',
   standalone: true,
-  imports: [OptionsComponent, CommonModule, MatButtonModule],
+  imports: [OptionsComponent, CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './tree.component.html',
   styleUrl: './tree.component.scss',
 })
@@ -177,7 +179,7 @@ export class TreeComponent {
       .append('text')
       .attr('dy', '.35em')
       .attr('x', (d: any) => {
-        return d.children || d._children ? -13 : 13;
+        return d.children || d._children ? -18 : 18;
       })
       .attr('text-anchor', (d: any) => {
         return d.children || d._children ? 'end' : 'start';
