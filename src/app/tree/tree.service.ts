@@ -63,8 +63,6 @@ export class TreeService {
       return ids.map((id: number) => this.grammar.getRules()[id]);
     }
 
-    console.log(this.currentNode);
-
     return [];
   }
 
@@ -74,9 +72,7 @@ export class TreeService {
 
   private updateCurrentNode() {
     this.expandedNodes.push(this.currentNode);
-    //TODO: add if in the last case to not add currentnode = null
     this.currentNode = this.expandableNodes.pop();
-    console.log(this.currentNode);
   }
 
   private initializeService() {
