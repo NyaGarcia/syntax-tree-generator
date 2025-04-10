@@ -51,14 +51,7 @@ export class TreeComponent {
   verticalSeparationBetweenNodes: number = 5;
   nodeTextDistanceY: string = '-5px';
   nodeTextDistanceX: number = 5;
-
-  dragStarted: boolean;
-  draggingNode: any;
   nodes: any[];
-  selectedNodeByDrag: any;
-
-  selectedNodeByClick: any;
-  previousClickedDomNode: any;
   links: any;
 
   options: Rule[];
