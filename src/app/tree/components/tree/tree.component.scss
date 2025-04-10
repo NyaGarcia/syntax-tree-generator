@@ -1,6 +1,6 @@
 .d3-chart {
   width: 700px;
-  height:400px;
+  height: 400px;
   overflow: auto;
 }
 
@@ -11,6 +11,10 @@
 
   mat-toolbar {
     padding: 20px;
+
+    mat-icon {
+      margin-right: 0;
+    }
   }
 
   button {
@@ -21,23 +25,24 @@
     margin-bottom: 20px;
     text-align: center;
   }
-
 }
 
-:host ::ng-deep svg{
+:host ::ng-deep svg {
   display: block;
   margin: auto;
 }
 
-:host ::ng-deep .node circle{
+:host ::ng-deep .node circle {
   fill: #fff;
   stroke: steelblue;
   stroke-width: 3px;
 }
 
-:host ::ng-deep .node text{ font: 12px sans-serif; }
+:host ::ng-deep .node text {
+  font: 12px sans-serif;
+}
 
-:host ::ng-deep .link{
+:host ::ng-deep .link {
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;
