@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Grammar } from '../../grammar/grammar';
 import { NonTerminal } from '../../grammar/symbols/non-terminal';
 import { Rule } from '../../grammar/symbols/rule';
@@ -15,11 +15,14 @@ export class TreeService {
   private expandableNodes: Stack<TreeNode<GrammarSymbol>>;
   private expandedNodes: Stack<TreeNode<GrammarSymbol>>;
 
+  isExpandedNodesEmpty = signal<boolean>(true);
+
   constructor() {}
 
   undo() {
     const previousNode = this.expandedNodes.pop()!;
     this.currentNode = previousNode;
+    this.updateExpandedNodes();
   }
 
   loadGrammar(grammar: Grammar) {
@@ -43,9 +46,12 @@ export class TreeService {
       }
     });
 
-    console.log(this.expandableNodes);
-
     this.updateCurrentNode();
+    this.updateExpandedNodes();
+  }
+
+  updateExpandedNodes() {
+    this.isExpandedNodesEmpty.update((_) => this.expandedNodes.isEmpty());
   }
 
   getInitialSymbol() {

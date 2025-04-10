@@ -1,6 +1,10 @@
 <div class="tree-container">
   <mat-toolbar>
-    <button mat-raised-button (click)="undo()">
+    <button
+      mat-raised-button
+      (click)="undo()"
+      [disabled]="treeService.isExpandedNodesEmpty()"
+    >
       <mat-icon
         aria-hidden="false"
         aria-label="Undo icon"

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, Signal, ViewChild } from '@angular/core';
 import { TreeLayout, hierarchy } from 'd3';
 import * as d3 from 'd3';
 import { TreeService } from '../../tree.service';
@@ -56,10 +56,13 @@ export class TreeComponent {
 
   options: Rule[];
 
-  constructor(private treeService: TreeService) {}
+  constructor(public treeService: TreeService) {}
+
+  ngOnInit() {}
 
   ngOnChanges() {
     this.treeService.loadGrammar(this.grammar);
+
     this.clear();
   }
 
