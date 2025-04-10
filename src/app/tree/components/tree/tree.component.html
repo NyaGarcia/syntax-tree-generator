@@ -1,4 +1,11 @@
 <div class="tree-container">
+  <button mat-raised-button color="primary" (click)="undo()">
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Undo icon"
+      fontIcon="undo"
+    ></mat-icon>
+  </button>
   <app-options
     (optionEmitter)="expandNode($event)"
     [options]="options"

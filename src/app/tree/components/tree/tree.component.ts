@@ -79,6 +79,7 @@ export class TreeComponent {
 
     this.updateNode(currentNode);
     this.updateOptions();
+    this.resizeSVG();
   }
 
   private updateOptions() {
@@ -109,7 +110,7 @@ export class TreeComponent {
       .append('svg')
       .attr('width', '100%')
       .attr('height', '100%')
-      .attr('viewBox', '0 0 600 350')
+      .attr('viewBox', '0 0 500 400')
       .append('g')
       .attr('transform', 'translate(0,' + this.margin.top + ')');
 
@@ -286,6 +287,21 @@ export class TreeComponent {
     this.updateNode(d);
   };
 
+  undo() {
+    this.treeService.undo();
+    const currentNode = this.treeService.getCurrentNode();
+    this.removeNode(currentNode);
+
+    this.updateOptions();
+  }
+
+  private removeNode(node: any) {
+    node.children = undefined;
+    node.data.children = undefined;
+
+    this.updateNode(node);
+  }
+
   private diagonal(s: any, d: any) {
     const path = `M ${s.x} ${s.y}
       C ${(s.x + d.x) / 2} ${s.y},
@@ -305,5 +321,16 @@ export class TreeComponent {
     this.root = null;
     this.treeService.clear();
     this.render();
+  }
+  private resizeSVG() {
+    const svg = this.chartContainer.nativeElement.firstChild;
+    const bbox = svg.getBBox();
+    // Update the width and height using the size of the contents
+    svg.setAttribute('width', bbox.x * 2 + bbox.width);
+    svg.setAttribute('height', bbox.y * 3 + bbox.height);
+    svg.setAttribute(
+      'viewBox',
+      '0 0 ' + (bbox.x * 2 + bbox.width) + ' ' + (bbox.y * 2 + bbox.height)
+    );
   }
 }
