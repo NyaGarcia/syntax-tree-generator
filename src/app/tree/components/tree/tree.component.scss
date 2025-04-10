@@ -7,6 +7,11 @@
 .tree-container {
   display: flex;
   flex-direction: column;
+  margin-left: 50px;
+
+  mat-toolbar {
+    padding: 20px;
+  }
 
   button {
     align-self: center;

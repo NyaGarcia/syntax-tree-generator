@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Grammar } from '../../../../grammar/grammar';
 
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
 
 interface HierarchyDatum {
   name: string;
@@ -22,7 +23,13 @@ interface HierarchyDatum {
 @Component({
   selector: 'app-tree',
   standalone: true,
-  imports: [OptionsComponent, CommonModule, MatButtonModule, MatIconModule],
+  imports: [
+    OptionsComponent,
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbar,
+  ],
   templateUrl: './tree.component.html',
   styleUrl: './tree.component.scss',
 })

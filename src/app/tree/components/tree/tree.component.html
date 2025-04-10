@@ -1,15 +1,17 @@
 <div class="tree-container">
-  <button mat-raised-button color="primary" (click)="undo()">
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Undo icon"
-      fontIcon="undo"
-    ></mat-icon>
-  </button>
-  <app-options
-    (optionEmitter)="expandNode($event)"
-    [options]="options"
-  ></app-options>
+  <mat-toolbar>
+    <button mat-raised-button (click)="undo()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Undo icon"
+        fontIcon="undo"
+      ></mat-icon>
+    </button>
+    <app-options
+      (optionEmitter)="expandNode($event)"
+      [options]="options"
+    ></app-options>
+  </mat-toolbar>
   <div class="d3-chart container tree" #chart></div>
   <span *ngIf="options.length === 0">Fin de la derivación</span>
   <button mat-raised-button (click)="clear()">Reiniciar árbol</button>
