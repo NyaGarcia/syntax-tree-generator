@@ -1,0 +1,16 @@
+{
+    "terminals": ["A", "B", "C"],
+    "nonTerminals": ["a", "b", "c"],
+    "rules": [{
+        "leftProductionRule": ["A"],
+        "rightProductionRule": ["BC"]
+    }, 
+    {
+        "leftProductionRule": ["B"],
+        "rightProductionRule": ["b"]
+    },
+    {
+        "leftProductionRule": ["C"],
+        "rightProductionRule": ["c"]
+    }]
+}
