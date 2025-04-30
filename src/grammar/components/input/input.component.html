@@ -44,7 +44,7 @@
   </div>
   }
 </div>
-<div>
+<div class="btn-container">
   <button
     [disabled]="productionRules.length === 0"
     mat-raised-button
@@ -52,5 +52,8 @@
     (click)="submit()"
   >
     Generar Árbol
+  </button>
+  <button mat-raised-button color="primary" (click)="downloadGrammar()">
+    Descargar Gramática
   </button>
 </div>

@@ -202,6 +202,28 @@ export class InputComponent {
     });
   }
 
+  downloadGrammar() {
+    const grammar = [
+      {
+        terminals: this.terminals,
+        nonTerminals: this.nonTerminals,
+        productionRules: this.productionRules,
+      },
+    ];
+
+    const grammarString = JSON.stringify(grammar);
+    const blob = new Blob([grammarString], { type: 'application/json' });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'grammar.json';
+    a.click();
+
+    URL.revokeObjectURL(url);
+  }
+
   private emitGrammar() {
     const unformattedGrammar = {
       terminals: this.terminals,
