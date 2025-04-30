@@ -1,13 +1,28 @@
 .dropdown {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 button {
-    margin-top: 20px;
+  margin-top: 20px;
+}
+
+.btn-container {
+  button {
+    margin-right: 10px;
+  }
+
+  mat-icon {
+    color: #fff;
+    margin-right: 0;
+  }
+
+  .red {
+    background-color: rgb(216, 11, 11);
+  }
 }
 
 .terminal-input {
-    justify-content: space-between;
-    display: flex;
-    margin-bottom: 50px;
+  justify-content: space-between;
+  display: flex;
+  margin-bottom: 50px;
 }

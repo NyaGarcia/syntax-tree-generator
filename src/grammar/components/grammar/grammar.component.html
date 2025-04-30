@@ -1,11 +1,16 @@
 <div class="dropdown">
   <app-help-dropdown></app-help-dropdown>
 </div>
+<div class="btn-container">
+  <button mat-raised-button class="red" (click)="clear()">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
 <div class="terminal-input">
   <div>
     <h3>No Terminales</h3>
     <app-terminals
-      [loadedSymbols]="loadedGrammar?.nonTerminals"
+      [symbols]="nonTerminals"
       [symbolType]="'no terminal'"
       [symbolLength]="1"
       (formValue)="onNonTerminalFormEvent($event)"
@@ -15,7 +20,7 @@
   <div>
     <h3>Terminales</h3>
     <app-terminals
-      [loadedSymbols]="loadedGrammar?.terminals"
+      [symbols]="terminals"
       [symbolType]="'terminal'"
       (formValue)="onTerminalFormEvent($event)"
       (deletedSymbol)="onDeletedTerminalEvent($event)"

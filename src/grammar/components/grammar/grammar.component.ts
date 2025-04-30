@@ -10,6 +10,7 @@ import {
   ProductionRule,
   UnformattedGrammar,
 } from '../../interfaces/production-rule.interface';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-grammar',
@@ -19,6 +20,7 @@ import {
     HelpDropdownComponent,
     MatButtonModule,
     TerminalsComponent,
+    MatIconModule,
   ],
   templateUrl: './grammar.component.html',
   styleUrl: './grammar.component.scss',
@@ -66,5 +68,11 @@ export class GrammarComponent {
 
   onDeletedNonTerminalEvent(nonTerminal: string) {
     this.deletedNonTerminal = nonTerminal;
+  }
+
+  clear() {
+    this.terminals = [];
+    this.nonTerminals = [];
+    this.loadedProductionRules = [];
   }
 }
