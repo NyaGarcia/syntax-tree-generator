@@ -58,6 +58,8 @@ export class InputComponent {
   @Input() terminals: string[];
   @Input() nonTerminals: string[];
 
+  @Input() loadedProductionRules: ProductionRule[];
+
   @Input() deletedTerminal: string;
   @Input() deletedNonTerminal: string;
 
@@ -138,6 +140,10 @@ export class InputComponent {
   }
 
   private updateRules() {
+    if (this.loadedProductionRules) {
+      this.productionRules = this.loadedProductionRules;
+    }
+
     if (this.deletedTerminal || this.deletedNonTerminal) {
       this.productionRules.map((rule) => this.purgeRule(rule));
       this.emitGrammar();

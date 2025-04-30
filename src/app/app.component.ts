@@ -7,6 +7,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DarkModeService } from './dark-mode/dark-mode.service';
 import { Grammar } from '../grammar/grammar';
 
+import { MatTabsModule } from '@angular/material/tabs';
+import { FileUploadComponent } from '../grammar/components/file-upload/file-upload.component';
+import { UnformattedGrammar } from '../grammar/interfaces/production-rule.interface';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,6 +20,8 @@ import { Grammar } from '../grammar/grammar';
     CommonModule,
     DarkModeComponent,
     MatToolbarModule,
+    MatTabsModule,
+    FileUploadComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -23,10 +29,43 @@ import { Grammar } from '../grammar/grammar';
 export class AppComponent {
   title = 'syntax-tree-generator';
   grammar: Grammar;
+  loadedGrammar: UnformattedGrammar;
+  selectedTabIndex: number = 0;
 
   constructor(public darkModeService: DarkModeService) {}
 
   generateTree(value: Grammar) {
     this.grammar = value;
+  }
+
+  loadFile(file: File) {
+    this.selectedTabIndex = 0;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      try {
+        const raw = JSON.parse(reader.result as string);
+
+        const unformattedGrammar: UnformattedGrammar = {
+          terminals: raw.terminals ?? [],
+          nonTerminals: raw.nonTerminals ?? [],
+          productionRules: (raw.rules ?? []).map((rule: any) => ({
+            leftProductionRule: rule.leftProductionRule?.[0] ?? '',
+            rightProductionRule: rule.rightProductionRule ?? [],
+          })),
+        };
+
+        this.loadedGrammar = unformattedGrammar;
+      } catch (err) {
+        console.error('Error parsing file as UnformattedGrammar:', err);
+      }
+    };
+
+    reader.onerror = () => {
+      console.error(`Failed to read file: ${file.name}`);
+    };
+
+    reader.readAsText(file);
   }
 }

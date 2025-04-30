@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InputComponent } from '../input/input.component';
 import { HelpDropdownComponent } from '../help-dropdown/help-dropdown.component';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
@@ -24,15 +24,26 @@ import {
   styleUrl: './grammar.component.scss',
 })
 export class GrammarComponent {
+  @Input() loadedGrammar: UnformattedGrammar;
   @Output() grammar = new EventEmitter<Grammar>();
   formValue: any;
   terminals: string[];
   nonTerminals: string[];
 
+  loadedProductionRules: ProductionRule[];
+
   deletedTerminal: string;
   deletedNonTerminal: string;
 
   constructor(private treeService: TreeService) {}
+
+  ngOnChanges() {
+    if (this.loadedGrammar) {
+      this.terminals = this.loadedGrammar.terminals;
+      this.nonTerminals = this.loadedGrammar.nonTerminals;
+      this.loadedProductionRules = this.loadedGrammar.productionRules;
+    }
+  }
 
   onFormEvent(formValue: UnformattedGrammar) {
     this.formValue = formValue;

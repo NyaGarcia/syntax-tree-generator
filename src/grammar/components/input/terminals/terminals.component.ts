@@ -26,6 +26,8 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './terminals.component.scss',
 })
 export class TerminalsComponent {
+  @Input() loadedSymbols: string[] | undefined;
+
   terminalForm: FormGroup;
   symbols: string[] = [];
 
@@ -38,6 +40,12 @@ export class TerminalsComponent {
     this.terminalForm = new FormGroup({
       symbol: new FormControl(''),
     });
+  }
+
+  ngOnChanges() {
+    if (this.loadedSymbols) {
+      this.symbols = this.loadedSymbols;
+    }
   }
 
   removeTerminal(index: number) {

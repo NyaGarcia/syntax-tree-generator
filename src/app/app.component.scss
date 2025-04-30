@@ -1,19 +1,19 @@
 mat-toolbar {
-    flex: 1 1 auto;
-    justify-content: end;
+  flex: 1 1 auto;
+  justify-content: end;
 }
 
 .app {
-    min-height:100vh;
+  min-height: 100vh;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 70px;
 
-    .input-container {
-        display: flex;
-    }
+  ::ng-deep mat-tab-header {
+    margin-bottom: 20px;
+  }
 }

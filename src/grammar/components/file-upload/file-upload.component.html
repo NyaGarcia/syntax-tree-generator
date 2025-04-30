@@ -1,1 +1,38 @@
-<input type="file">
+<div
+  class="drop-zone"
+  [class.dragging]="isDragging"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave()"
+  (drop)="onDrop($event)"
+>
+  <p>Arrastra y suelta el fichero aquí o</p>
+  <label class="file-label">
+    <input type="file" (change)="onFileSelect($event)" multiple />
+    Selecciona un fichero
+  </label>
+</div>
+
+@if (fileList.length > 0) {
+<div class="file-list">
+  <p>Selected Files:</p>
+  <ul>
+    @for(file of fileList; track file.name) {
+    <li>
+      <span>{{ file.name }}</span>
+      <div>
+        <button color="primary" mat-raised-button (click)="emitFile($index)">
+          Cargar Gramática
+        </button>
+        <button
+          class="delete-btn"
+          mat-raised-button
+          (click)="removeFile($index)"
+        >
+          Eliminar
+        </button>
+      </div>
+    </li>
+    }
+  </ul>
+</div>
+}
