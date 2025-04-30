@@ -11,6 +11,7 @@ import {
   UnformattedGrammar,
 } from '../../interfaces/production-rule.interface';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-grammar',
@@ -37,7 +38,7 @@ export class GrammarComponent {
   deletedTerminal: string;
   deletedNonTerminal: string;
 
-  constructor(private treeService: TreeService) {}
+  constructor() {}
 
   ngOnChanges() {
     if (this.loadedGrammar) {
@@ -74,5 +75,24 @@ export class GrammarComponent {
     this.terminals = [];
     this.nonTerminals = [];
     this.loadedProductionRules = [];
+  }
+
+  loadGrammar() {
+    this.terminals = ['S', 'A', 'B', 'C'];
+    this.nonTerminals = ['a', 'b', 'c'];
+    this.loadedProductionRules = [
+      {
+        leftProductionRule: 'A',
+        rightProductionRule: ['BC'],
+      },
+      {
+        leftProductionRule: 'B',
+        rightProductionRule: ['b'],
+      },
+      {
+        leftProductionRule: 'C',
+        rightProductionRule: ['c'],
+      },
+    ];
   }
 }
