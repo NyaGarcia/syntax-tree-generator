@@ -26,7 +26,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './terminals.component.scss',
 })
 export class TerminalsComponent {
-  @Input() symbols: string[] = [];
+  @Input() symbols: string[];
 
   terminalForm: FormGroup;
 
@@ -39,6 +39,8 @@ export class TerminalsComponent {
     this.terminalForm = new FormGroup({
       symbol: new FormControl(''),
     });
+
+    this.symbols = [];
   }
 
   removeTerminal(index: number) {
