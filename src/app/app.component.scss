@@ -16,4 +16,8 @@ mat-toolbar {
   ::ng-deep mat-tab-header {
     margin-bottom: 20px;
   }
+
+  .grammar-container {
+    max-width: 100%;
+  }
 }
