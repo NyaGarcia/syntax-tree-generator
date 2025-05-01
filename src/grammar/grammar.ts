@@ -133,7 +133,10 @@ export class Grammar {
   }
 
   private addInitialSymbol() {
-    this.initialSymbol = this.nonTerminals[0];
+    this.initialSymbol = this.nonTerminals.find(
+      (nonTerminal) =>
+        nonTerminal.value === this.productionRules[0].leftProductionRule
+    )!;
   }
 
   private filterDuplicates(symbols: string[]) {
