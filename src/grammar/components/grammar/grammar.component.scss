@@ -26,3 +26,9 @@ button {
   display: flex;
   margin-bottom: 50px;
 }
+
+@media (max-width: 400px) {
+  .terminal-input {
+    flex-direction: column;
+  }
+}

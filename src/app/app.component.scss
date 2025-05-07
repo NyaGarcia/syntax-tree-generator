@@ -11,6 +11,7 @@ mat-toolbar {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: 15px;
   padding-top: 70px;
 
   ::ng-deep mat-tab-header {
@@ -19,5 +20,11 @@ mat-toolbar {
 
   .grammar-container {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding-top: 15px;
   }
 }
