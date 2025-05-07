@@ -83,7 +83,7 @@ export class GrammarComponent {
     this.loadedProductionRules = [
       {
         leftProductionRule: 'A',
-        rightProductionRule: ['BC'],
+        rightProductionRule: ['B', 'C'],
       },
       {
         leftProductionRule: 'B',
