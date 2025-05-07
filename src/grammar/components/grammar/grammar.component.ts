@@ -78,8 +78,8 @@ export class GrammarComponent {
   }
 
   loadGrammar() {
-    this.terminals = ['S', 'A', 'B', 'C'];
-    this.nonTerminals = ['a', 'b', 'c'];
+    this.nonTerminals = ['S', 'A', 'B', 'C'];
+    this.terminals = ['a', 'b', 'c'];
     this.loadedProductionRules = [
       {
         leftProductionRule: 'A',
