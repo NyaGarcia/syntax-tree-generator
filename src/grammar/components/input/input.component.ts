@@ -136,12 +136,17 @@ export class InputComponent {
 
   private updateRules() {
     if (this.loadedProductionRules) {
-      this.productionRules = this.loadedProductionRules;
+      this.productionRules = [...this.loadedProductionRules];
     }
 
     if (this.deletedTerminal || this.deletedNonTerminal) {
       this.productionRules.map((rule) => this.purgeRule(rule));
-      this.emitGrammar();
+
+      this.clearDeletedSymbol();
+
+      if (!this.firstEmission) {
+        this.emitGrammar();
+      }
     }
   }
 
@@ -232,6 +237,11 @@ export class InputComponent {
   private clearProductionRules() {
     this.leftProductionRule = [];
     this.rightProductionRule = [];
+  }
+
+  private clearDeletedSymbol() {
+    this.deletedTerminal = '';
+    this.deletedNonTerminal = '';
   }
 
   /*   private focusNextInput(list: QueryList<ElementRef>) {
