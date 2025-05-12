@@ -16,6 +16,7 @@
       [symbols]="nonTerminals"
       [symbolType]="'no terminal'"
       [symbolLength]="1"
+      [placeholder]="'S'"
       (formValue)="onNonTerminalFormEvent($event)"
       (deletedSymbol)="onDeletedNonTerminalEvent($event)"
     ></app-terminals>
@@ -25,6 +26,7 @@
     <app-terminals
       [symbols]="terminals"
       [symbolType]="'terminal'"
+      [placeholder]="'ɛ'"
       (formValue)="onTerminalFormEvent($event)"
       (deletedSymbol)="onDeletedTerminalEvent($event)"
     ></app-terminals>

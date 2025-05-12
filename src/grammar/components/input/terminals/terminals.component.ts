@@ -34,6 +34,7 @@ export class TerminalsComponent {
   @Output() deletedSymbol: EventEmitter<string> = new EventEmitter<string>();
   @Input() symbolType: string;
   @Input() symbolLength: number;
+  @Input() placeholder: string;
 
   ngOnInit() {
     this.terminalForm = new FormGroup({
