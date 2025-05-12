@@ -30,7 +30,7 @@ export class GrammarComponent {
   @Input() loadedGrammar: UnformattedGrammar;
   @Output() grammar = new EventEmitter<Grammar>();
   formValue: any;
-  terminals: string[];
+  terminals: string[] = ['ε'];
   nonTerminals: string[];
 
   loadedProductionRules: ProductionRule[];
@@ -78,20 +78,32 @@ export class GrammarComponent {
   }
 
   loadGrammar() {
-    this.nonTerminals = ['S', 'A', 'B', 'C'];
+    this.nonTerminals = ['A', 'B', 'C'];
     this.terminals = ['a', 'b', 'c'];
     this.loadedProductionRules = [
       {
         leftProductionRule: 'A',
-        rightProductionRule: ['B', 'C'],
+        rightProductionRule: ['a', 'B'],
+      },
+      {
+        leftProductionRule: 'A',
+        rightProductionRule: ['ε'],
       },
       {
         leftProductionRule: 'B',
-        rightProductionRule: ['b'],
+        rightProductionRule: ['b', 'A'],
+      },
+      {
+        leftProductionRule: 'B',
+        rightProductionRule: ['C'],
       },
       {
         leftProductionRule: 'C',
-        rightProductionRule: ['c'],
+        rightProductionRule: ['c', 'C'],
+      },
+      {
+        leftProductionRule: 'C',
+        rightProductionRule: ['ε'],
       },
     ];
   }

@@ -52,11 +52,11 @@ interface IDropdownItem {
 export class InputComponent {
   private firstEmission = true;
 
-  dropdownSymbols: IDropdownItem[];
-  dropdownNonTerminals: IDropdownItem[];
+  dropdownSymbols: IDropdownItem[] = [];
+  dropdownNonTerminals: IDropdownItem[] = [];
 
   @Input() terminals: string[];
-  @Input() nonTerminals: string[];
+  @Input() nonTerminals: string[] = [];
 
   @Input() loadedProductionRules: ProductionRule[];
 
@@ -81,11 +81,6 @@ export class InputComponent {
   constructor() {}
 
   ngOnInit() {
-    this.terminals = [];
-    this.nonTerminals = [];
-
-    this.updateSymbols();
-
     this.leftProductionRuleDropdownSettings = {
       singleSelection: true,
       idField: 'id',
@@ -133,6 +128,7 @@ export class InputComponent {
 
     if (this.terminals) {
       this.dropdownSymbols = [
+        ...this.dropdownSymbols,
         ...this.formatSymbols(),
         ...this.dropdownNonTerminals,
       ];
