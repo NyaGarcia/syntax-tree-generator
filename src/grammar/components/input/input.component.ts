@@ -128,7 +128,6 @@ export class InputComponent {
 
     if (this.terminals) {
       this.dropdownSymbols = [
-        ...this.dropdownSymbols,
         ...this.formatSymbols(),
         ...this.dropdownNonTerminals,
       ];
