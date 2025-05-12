@@ -50,10 +50,12 @@ export class TerminalsComponent {
   }
 
   addTerminal() {
-    const value = this.terminalForm.get('symbol')?.value;
+    const value = this.terminalForm.get('symbol')?.value || 'ɛ';
 
-    this.symbols = [...this.symbols, value];
-    this.formValue.emit(this.symbols);
+    if (!this.symbols.includes(value)) {
+      this.symbols = [...this.symbols, value];
+      this.formValue.emit(this.symbols);
+    }
   }
 
   get symbol() {
