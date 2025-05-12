@@ -56,7 +56,7 @@ export class InputComponent {
   dropdownNonTerminals: IDropdownItem[] = [];
 
   @Input() terminals: string[];
-  @Input() nonTerminals: string[] = [];
+  @Input() nonTerminals: string[];
 
   @Input() loadedProductionRules: ProductionRule[];
 

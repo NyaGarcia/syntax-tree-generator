@@ -30,8 +30,8 @@ export class GrammarComponent {
   @Input() loadedGrammar: UnformattedGrammar;
   @Output() grammar = new EventEmitter<Grammar>();
   formValue: any;
-  terminals: string[] = ['ε'];
-  nonTerminals: string[];
+  terminals: string[] = [];
+  nonTerminals: string[] = [];
 
   loadedProductionRules: ProductionRule[];
 

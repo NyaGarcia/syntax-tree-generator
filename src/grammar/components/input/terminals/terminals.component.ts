@@ -26,7 +26,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './terminals.component.scss',
 })
 export class TerminalsComponent {
-  @Input() symbols: string[] = [];
+  @Input() symbols: string[];
 
   terminalForm: FormGroup;
 
@@ -50,6 +50,7 @@ export class TerminalsComponent {
 
   addTerminal() {
     const value = this.terminalForm.get('symbol')?.value;
+    console.log(this.symbols);
     this.symbols = [...this.symbols, value];
     this.formValue.emit(this.symbols);
   }
