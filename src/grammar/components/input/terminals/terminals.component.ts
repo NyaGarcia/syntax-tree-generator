@@ -51,7 +51,7 @@ export class TerminalsComponent {
 
   addTerminal() {
     const value = this.terminalForm.get('symbol')?.value;
-    console.log(this.symbols);
+
     this.symbols = [...this.symbols, value];
     this.formValue.emit(this.symbols);
   }
