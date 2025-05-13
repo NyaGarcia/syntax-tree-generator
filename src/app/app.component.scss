@@ -25,6 +25,11 @@ mat-toolbar {
 
 @media (max-width: 400px) {
   .container {
+    flex-direction: column;
     padding-top: 15px;
+
+    .tree-container {
+      margin-top: 20px;
+    }
   }
 }

@@ -2,6 +2,8 @@
   width: 700px;
   height: 400px;
   overflow: auto;
+
+  width: 100%;
 }
 
 .tree-container {
@@ -46,4 +48,10 @@
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;
+}
+
+@media (max-width: 400px) {
+  .tree-container {
+    margin-left: 0;
+  }
 }
