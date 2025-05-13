@@ -31,11 +31,17 @@ export class AppComponent {
   grammar: Grammar;
   loadedGrammar: UnformattedGrammar;
   selectedTabIndex: number = 0;
+  displayTree: boolean = false;
 
   constructor(public darkModeService: DarkModeService) {}
 
   generateTree(value: Grammar) {
-    this.grammar = value;
+    if (value.getRules().length !== 0) {
+      this.grammar = value;
+      this.displayTree = true;
+    } else {
+      this.displayTree = false;
+    }
   }
 
   loadFile(file: File) {
@@ -45,16 +51,20 @@ export class AppComponent {
 
     reader.onload = () => {
       try {
-        const raw = JSON.parse(reader.result as string);
+        const raw = JSON.parse(reader.result as string)[0];
+
+        console.log(raw);
 
         const unformattedGrammar: UnformattedGrammar = {
           terminals: raw.terminals ?? [],
           nonTerminals: raw.nonTerminals ?? [],
-          productionRules: (raw.rules ?? []).map((rule: any) => ({
+          productionRules: (raw.productionRules ?? []).map((rule: any) => ({
             leftProductionRule: rule.leftProductionRule?.[0] ?? '',
             rightProductionRule: rule.rightProductionRule ?? [],
           })),
         };
+
+        console.log(unformattedGrammar);
 
         this.loadedGrammar = unformattedGrammar;
       } catch (err) {

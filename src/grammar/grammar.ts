@@ -135,7 +135,7 @@ export class Grammar {
   private addInitialSymbol() {
     this.initialSymbol = this.nonTerminals.find(
       (nonTerminal) =>
-        nonTerminal.value === this.productionRules[0].leftProductionRule
+        nonTerminal.value === this.productionRules[0]?.leftProductionRule
     )!;
   }
 

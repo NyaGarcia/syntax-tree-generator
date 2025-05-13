@@ -48,9 +48,7 @@ export class GrammarComponent {
 
   onFormEvent(formValue: UnformattedGrammar) {
     this.formValue = formValue;
-    const grammar = new Grammar(formValue);
-    //this.treeService.loadGrammar(grammar);
-    this.grammar.emit(grammar);
+    this.emitGrammar(formValue);
   }
 
   onTerminalFormEvent(terminals: string[]) {
@@ -73,6 +71,14 @@ export class GrammarComponent {
     this.terminals = [];
     this.nonTerminals = [];
     this.loadedProductionRules = [];
+
+    const emptyGrammar = {
+      terminals: this.terminals,
+      nonTerminals: this.nonTerminals,
+      productionRules: this.loadedProductionRules,
+    };
+
+    this.emitGrammar(emptyGrammar);
   }
 
   loadGrammar() {
@@ -118,5 +124,10 @@ export class GrammarComponent {
     }
 
     console.log(this.terminals);
+  }
+
+  private emitGrammar(value: UnformattedGrammar) {
+    const grammar = new Grammar(value);
+    this.grammar.emit(grammar);
   }
 }
