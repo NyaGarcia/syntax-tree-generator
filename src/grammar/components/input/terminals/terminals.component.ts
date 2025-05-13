@@ -43,11 +43,7 @@ export class TerminalsComponent {
     });
 
     if (this.required) {
-      console.log(this.placeholder);
-      console.log(this.required);
       this.terminalForm.get('symbol')?.setValidators([Validators.required]);
-
-      console.log(this.terminalForm.get('symbol'));
     }
   }
 
