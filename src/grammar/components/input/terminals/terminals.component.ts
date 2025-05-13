@@ -35,11 +35,20 @@ export class TerminalsComponent {
   @Input() symbolType: string;
   @Input() symbolLength: number;
   @Input() placeholder: string;
+  @Input() required: boolean = false;
 
   ngOnInit() {
     this.terminalForm = new FormGroup({
       symbol: new FormControl(''),
     });
+
+    if (this.required) {
+      console.log(this.placeholder);
+      console.log(this.required);
+      this.terminalForm.get('symbol')?.setValidators([Validators.required]);
+
+      console.log(this.terminalForm.get('symbol'));
+    }
   }
 
   removeTerminal(index: number) {
@@ -47,6 +56,12 @@ export class TerminalsComponent {
     this.symbols = this.symbols.filter((_, i) => i !== index);
     this.formValue.emit(this.symbols);
     this.deletedSymbol.emit(symbol);
+  }
+
+  checkFormValidity() {
+    if (this.terminalForm.valid) {
+      this.addTerminal();
+    }
   }
 
   addTerminal() {

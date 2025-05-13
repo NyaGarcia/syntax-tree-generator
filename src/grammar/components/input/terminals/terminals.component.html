@@ -7,11 +7,17 @@
           formControlName="symbol"
           [placeholder]="placeholder"
           [maxlength]="symbolLength"
-          (keyup.enter)="addTerminal(); symbolForm.resetForm()"
+          (keyup.enter)="checkFormValidity(); symbolForm.resetForm()"
         />
       </mat-form-field>
     </form>
-    <button mat-raised-button (click)="addTerminal()">+</button>
+    <button
+      mat-raised-button
+      [disabled]="terminalForm.invalid"
+      (click)="addTerminal()"
+    >
+      +
+    </button>
   </div>
 
   <div class="terminal-container">
