@@ -42,9 +42,7 @@ export class GrammarComponent {
 
   ngOnChanges() {
     if (this.loadedGrammar) {
-      this.terminals = this.loadedGrammar.terminals;
-      this.nonTerminals = this.loadedGrammar.nonTerminals;
-      this.loadedProductionRules = this.loadedGrammar.productionRules;
+      this.loadData();
     }
   }
 
@@ -79,7 +77,7 @@ export class GrammarComponent {
 
   loadGrammar() {
     this.nonTerminals = ['A', 'B', 'C'];
-    this.terminals = ['a', 'b', 'c'];
+    this.terminals = ['a', 'b', 'c', 'ε'];
     this.loadedProductionRules = [
       {
         leftProductionRule: 'A',
@@ -106,5 +104,19 @@ export class GrammarComponent {
         rightProductionRule: ['ε'],
       },
     ];
+  }
+
+  private loadData() {
+    const { terminals, nonTerminals, productionRules } = this.loadedGrammar;
+
+    this.terminals = terminals;
+    this.nonTerminals = nonTerminals;
+    this.loadedProductionRules = productionRules;
+
+    if (!this.terminals.includes('ε')) {
+      this.terminals = [...this.terminals, 'ε'];
+    }
+
+    console.log(this.terminals);
   }
 }
