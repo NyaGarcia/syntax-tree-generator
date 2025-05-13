@@ -54,4 +54,9 @@
   .tree-container {
     margin-left: 0;
   }
+
+  :host ::ng-deep svg {
+    transform: scale(1.5);
+    width: 100%;
+  }
 }
