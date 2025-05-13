@@ -56,6 +56,8 @@ export class TreeComponent {
 
   options: Rule[];
 
+  derivedString: string;
+
   constructor(public treeService: TreeService) {}
 
   ngOnInit() {}
@@ -87,6 +89,10 @@ export class TreeComponent {
 
   private updateOptions() {
     this.options = this.treeService.getOptions();
+
+    if (this.options.length === 0) {
+      this.derivedString = this.treeService.getDerivedString();
+    }
   }
 
   private createNode(symbol: GrammarSymbol, currentNode: any) {

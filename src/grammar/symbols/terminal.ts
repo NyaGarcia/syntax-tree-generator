@@ -1,17 +1,16 @@
-import { GrammarSymbol } from "./grammar-symbol.interface";
+import { GrammarSymbol } from './grammar-symbol.interface';
 
 export class Terminal implements GrammarSymbol {
-    public type = "Terminal";
-    
-    constructor(public value: String) {}
-    
-    equals(symbol: GrammarSymbol): boolean {
-        const {value} = symbol;
-        return this.isTerminal(symbol) && value === this.value;
-    }
+  public type = 'Terminal';
 
-    isTerminal(symbol: GrammarSymbol): boolean {
-        return symbol instanceof Terminal;
-    }
+  constructor(public value: string) {}
 
+  equals(symbol: GrammarSymbol): boolean {
+    const { value } = symbol;
+    return this.isTerminal(symbol) && value === this.value;
+  }
+
+  isTerminal(symbol: GrammarSymbol): boolean {
+    return symbol instanceof Terminal;
+  }
 }

@@ -1,5 +1,5 @@
 export interface GrammarSymbol {
-    value: String;
+  value: string;
 
-    equals(symbol: GrammarSymbol): boolean;
+  equals(symbol: GrammarSymbol): boolean;
 }

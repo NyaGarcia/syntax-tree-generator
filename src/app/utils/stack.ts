@@ -20,4 +20,8 @@ export class Stack<T> {
   isEmpty() {
     return this.items.length === 0;
   }
+
+  getItems() {
+    return [...this.items];
+  }
 }

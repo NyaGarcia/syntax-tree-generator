@@ -1,30 +1,29 @@
-import { GrammarSymbol } from "./grammar-symbol.interface";
+import { GrammarSymbol } from './grammar-symbol.interface';
 
 export class NonTerminal implements GrammarSymbol {
-    private nextProductionRulesIds: number[];
-    public type = "NonTerminal";
-    
-    constructor(public value: String) {}
-    
-    equals(symbol: GrammarSymbol): boolean {
-        const {value} = symbol;
-        return this.isNonTerminal(symbol) && value === this.value;
-    }
+  private nextProductionRulesIds: number[];
+  public type = 'NonTerminal';
 
-    isNonTerminal(symbol: GrammarSymbol): boolean {
-        return symbol instanceof NonTerminal;
-    }
+  constructor(public value: string) {}
 
-    contains(value: String) {
-        return this.value === value;
-    }
+  equals(symbol: GrammarSymbol): boolean {
+    const { value } = symbol;
+    return this.isNonTerminal(symbol) && value === this.value;
+  }
 
-    setNextProductionRulesIds(rules: number[]) {
-        this.nextProductionRulesIds = rules;
-    }
+  isNonTerminal(symbol: GrammarSymbol): boolean {
+    return symbol instanceof NonTerminal;
+  }
 
-    getNextProductionRulesIds() {
-        return this.nextProductionRulesIds;
-    }
+  contains(value: String) {
+    return this.value === value;
+  }
 
+  setNextProductionRulesIds(rules: number[]) {
+    this.nextProductionRulesIds = rules;
+  }
+
+  getNextProductionRulesIds() {
+    return this.nextProductionRulesIds;
+  }
 }

@@ -5,6 +5,7 @@ import { Rule } from '../../grammar/symbols/rule';
 import { Stack } from '../utils/stack';
 import { GrammarSymbol } from '../../grammar/symbols/grammar-symbol.interface';
 import { TreeNode } from '../utils/tree-node';
+import { EPSILON } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class TreeService {
   private currentNode: any;
   private expandableNodes: Stack<TreeNode<GrammarSymbol>>;
   private expandedNodes: Stack<TreeNode<GrammarSymbol>>;
+  private derivedString: string = '';
 
   isExpandedNodesEmpty = signal<boolean>(true);
 
@@ -30,6 +32,10 @@ export class TreeService {
     this.initializeService();
   }
 
+  getDerivedString() {
+    return this.derivedString;
+  }
+
   getCurrentNode() {
     return this.currentNode;
   }
@@ -41,8 +47,11 @@ export class TreeService {
   updateTreeStatus(symbols: TreeNode<GrammarSymbol>[]) {
     // Symbols must be reserved before pushed on to the stack
     symbols.reverse().forEach((symbol) => {
-      if (symbol.data instanceof NonTerminal) {
+      const { data } = symbol;
+      if (data instanceof NonTerminal) {
         this.expandableNodes.push(symbol);
+      } else {
+        this.updateDerivedString(data.value);
       }
     });
 
@@ -85,5 +94,11 @@ export class TreeService {
     this.currentNode = null;
     this.expandableNodes = new Stack();
     this.expandedNodes = new Stack();
+  }
+
+  private updateDerivedString(value: string) {
+    value === EPSILON
+      ? (this.derivedString += '')
+      : (this.derivedString += value);
   }
 }

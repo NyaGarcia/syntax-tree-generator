@@ -17,6 +17,8 @@
     ></app-options>
   </mat-toolbar>
   <div class="d3-chart container tree" #chart></div>
-  <span *ngIf="options.length === 0">Fin de la derivación</span>
+  <span *ngIf="options.length === 0"
+    >Fin de la derivación: {{ derivedString }}</span
+  >
   <button mat-raised-button (click)="clear()">Reiniciar árbol</button>
 </div>
