@@ -1,0 +1,12 @@
+[
+  {
+    "terminals": ["a", "b"],
+    "nonTerminals": ["S"],
+    "productionRules": [
+      { "leftProductionRule": "S", "rightProductionRule": ["a", "S", "a"] },
+      { "leftProductionRule": "S", "rightProductionRule": ["b", "S"] },
+      { "leftProductionRule": "S", "rightProductionRule": ["S", "b"] },
+      { "leftProductionRule": "S", "rightProductionRule": ["ε"] }
+    ]
+  }
+]

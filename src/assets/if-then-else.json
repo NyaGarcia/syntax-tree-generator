@@ -1,0 +1,14 @@
+[
+  {
+    "terminals": ["if", "then", "else", "a", "b"],
+    "nonTerminals": ["S", "B"],
+    "productionRules": [
+      {
+        "leftProductionRule": "S",
+        "rightProductionRule": ["if", "B", "then", "S", "else", "S"]
+      },
+      { "leftProductionRule": "S", "rightProductionRule": ["a"] },
+      { "leftProductionRule": "B", "rightProductionRule": ["b"] }
+    ]
+  }
+]

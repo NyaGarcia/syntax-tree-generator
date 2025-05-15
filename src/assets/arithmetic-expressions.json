@@ -1,0 +1,14 @@
+[
+  {
+    "terminals": ["+", "*", "(", ")", "id"],
+    "nonTerminals": ["E", "T", "F"],
+    "productionRules": [
+      { "leftProductionRule": "E", "rightProductionRule": ["E", "+", "T"] },
+      { "leftProductionRule": "E", "rightProductionRule": ["T"] },
+      { "leftProductionRule": "T", "rightProductionRule": ["T", "*", "F"] },
+      { "leftProductionRule": "T", "rightProductionRule": ["F"] },
+      { "leftProductionRule": "F", "rightProductionRule": ["(", "E", ")"] },
+      { "leftProductionRule": "F", "rightProductionRule": ["id"] }
+    ]
+  }
+]
