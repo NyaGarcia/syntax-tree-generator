@@ -33,7 +33,6 @@ export class TerminalsComponent {
   @Output() formValue: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() deletedSymbol: EventEmitter<string> = new EventEmitter<string>();
   @Input() symbolType: string;
-  @Input() symbolLength: number;
   @Input() placeholder: string;
   @Input() required: boolean = false;
 
