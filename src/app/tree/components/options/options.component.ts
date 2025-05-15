@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Rule } from '../../../../grammar/symbols/rule';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [CommonModule, MatButtonModule],
   templateUrl: './options.component.html',
   styleUrl: './options.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OptionsComponent {
   @Input() options: Rule[];
@@ -18,5 +24,4 @@ export class OptionsComponent {
   selectOption(option: Rule) {
     this.optionEmitter.emit(option);
   }
-
 }

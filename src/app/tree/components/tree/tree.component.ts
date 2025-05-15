@@ -13,6 +13,7 @@ import { Grammar } from '../../../../grammar/grammar';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
+import { EPSILON } from '../../../utils/constants';
 
 interface HierarchyDatum {
   name: string;
@@ -91,7 +92,7 @@ export class TreeComponent {
     this.options = this.treeService.getOptions();
 
     if (this.options.length === 0) {
-      this.derivedString = this.treeService.getDerivedString();
+      this.derivedString = this.getDerivedString();
     }
   }
 
@@ -341,5 +342,28 @@ export class TreeComponent {
       'viewBox',
       '0 0 ' + (bbox.x * 2 + bbox.width) + ' ' + (bbox.y * 2 + bbox.height)
     );
+  }
+
+  private getDerivedString() {
+    return this.getLeafNodesLeftToRight(this.root)
+      .map(({ data: { value } }) => (value === EPSILON ? '' : value))
+      .join('');
+  }
+
+  private getLeafNodesLeftToRight(root: any): any[] {
+    const leaves: any[] = [];
+
+    function traverse(node: any): void {
+      if (!node.children || node.children.length === 0) {
+        leaves.push(node);
+      } else {
+        for (const child of node.children) {
+          traverse(child);
+        }
+      }
+    }
+
+    traverse(root);
+    return leaves;
   }
 }
