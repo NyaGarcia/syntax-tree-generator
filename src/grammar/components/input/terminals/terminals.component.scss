@@ -1,37 +1,38 @@
 .form-container {
-    display: flex;
-    align-items: top;
+  display: flex;
+  align-items: top;
 
-    button {
-        margin: 10px;
-    }
+  button {
+    margin: 10px;
+  }
 }
 
 .terminal-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 400px;
+
+  .terminal {
+    align-items: center;
+    background-color: #99e1d9; // #41C8C8
+    border: 0px;
+    border-radius: 16px;
     display: flex;
+    margin: 10px;
+    padding: 2px 5px;
+    width: fit-content;
 
-    .terminal {
-        align-items: center;
-        background-color: #99E1D9; // #41C8C8
-        border: 0px;
-        border-radius: 16px;
-        display: flex;
-        margin: 10px;
-        padding: 2px 5px;
-        width: fit-content;
-
-        span {
-            margin-left: 5px;
-            margin-right: 3px;
-        }
-
-        mat-icon {
-            transform: scale(0.7);
-        }
-
-        mat-icon:hover {
-            cursor: pointer;
-        }
+    span {
+      margin-left: 5px;
+      margin-right: 3px;
     }
-}
 
+    mat-icon {
+      transform: scale(0.7);
+    }
+
+    mat-icon:hover {
+      cursor: pointer;
+    }
+  }
+}
