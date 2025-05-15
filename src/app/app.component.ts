@@ -46,6 +46,7 @@ export class AppComponent {
 
   loadFile(file: File) {
     this.selectedTabIndex = 0;
+    this.displayTree = false;
 
     const reader = new FileReader();
 
@@ -59,7 +60,7 @@ export class AppComponent {
           terminals: raw.terminals ?? [],
           nonTerminals: raw.nonTerminals ?? [],
           productionRules: (raw.productionRules ?? []).map((rule: any) => ({
-            leftProductionRule: rule.leftProductionRule?.[0] ?? '',
+            leftProductionRule: rule.leftProductionRule ?? '',
             rightProductionRule: rule.rightProductionRule ?? [],
           })),
         };
