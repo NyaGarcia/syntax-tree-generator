@@ -1,0 +1,7 @@
+[
+  {
+    "terminals": ["a", "b"],
+    "nonTerminals": ["S"],
+    "productionRules": [{ "rightProductionRule": ["a", "S", "b"] }]
+  }
+]

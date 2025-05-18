@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Validation Errors</h2>
+<mat-dialog-content>
+  <ul>
+    @for (error of data.errors; track $index) {
+    <li>{{ error }}</li>
+    }
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="primary">Close</button>
+</mat-dialog-actions>

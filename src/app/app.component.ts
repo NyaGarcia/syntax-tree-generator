@@ -9,7 +9,12 @@ import { Grammar } from '../grammar/grammar';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { FileUploadComponent } from '../grammar/components/file-upload/file-upload.component';
-import { UnformattedGrammar } from '../grammar/interfaces/production-rule.interface';
+import {
+  ProductionRule,
+  UnformattedGrammar,
+} from '../grammar/interfaces/production-rule.interface';
+import { EPSILON } from './utils/constants';
+import { GrammarValidatorService } from '../grammar/services/grammar-validator.service';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +38,13 @@ export class AppComponent {
   selectedTabIndex: number = 0;
   displayTree: boolean = false;
 
-  constructor(public darkModeService: DarkModeService) {}
+  validationErrors: string[] = [];
+  showModal = false;
+
+  constructor(
+    public darkModeService: DarkModeService,
+    private grammarValidatorService: GrammarValidatorService
+  ) {}
 
   generateTree(value: Grammar) {
     if (value.getRules().length !== 0) {
@@ -56,18 +67,26 @@ export class AppComponent {
 
         console.log(raw);
 
-        const unformattedGrammar: UnformattedGrammar = {
+        /* const unformattedGrammar: UnformattedGrammar = {
           terminals: raw.terminals ?? [],
           nonTerminals: raw.nonTerminals ?? [],
           productionRules: (raw.productionRules ?? []).map((rule: any) => ({
             leftProductionRule: rule.leftProductionRule ?? '',
             rightProductionRule: rule.rightProductionRule ?? [],
           })),
-        };
+        }; */
 
-        console.log(unformattedGrammar);
+        const validationResult: any =
+          this.grammarValidatorService.validate(raw);
 
-        this.loadedGrammar = unformattedGrammar;
+        console.log(validationResult);
+
+        if (validationResult.errors.length > 0) {
+          this.validationErrors = validationResult.errors;
+          this.showModal = true;
+        } else {
+          this.loadedGrammar = validationResult.unformattedGrammar;
+        }
       } catch (err) {
         console.error('Error parsing file as UnformattedGrammar:', err);
       }
@@ -78,5 +97,66 @@ export class AppComponent {
     };
 
     reader.readAsText(file);
+  }
+
+  private validateJson(raw: UnformattedGrammar) {
+    if (
+      !raw ||
+      !Array.isArray(raw.terminals) ||
+      !Array.isArray(raw.nonTerminals) ||
+      !Array.isArray(raw.productionRules)
+    ) {
+      throw new Error(
+        'Invalid grammar structure: Missing terminals, nonTerminals, or productionRules.'
+      );
+    }
+
+    const { terminals, nonTerminals, productionRules } = raw;
+
+    const validSymbols = new Set([...terminals, ...nonTerminals, '']);
+
+    const processedRules: ProductionRule[] = productionRules.map(
+      (rule: ProductionRule, index: number) => {
+        const left = rule.leftProductionRule;
+
+        if (typeof left !== 'string' || left.trim() === '') {
+          throw new Error(
+            `Rule ${index}: leftProductionRule must be a non-empty string.`
+          );
+        }
+
+        if (!nonTerminals.includes(left)) {
+          throw new Error(
+            `Rule ${index}: leftProductionRule "${left}" is not in nonTerminals.`
+          );
+        }
+
+        if (!Array.isArray(rule.rightProductionRule)) {
+          throw new Error(
+            `Rule ${index}: rightProductionRule must be an array.`
+          );
+        }
+
+        const updatedRight = rule.rightProductionRule.map((symbol, i) => {
+          if (!validSymbols.has(symbol)) {
+            throw new Error(
+              `Rule ${index}: Symbol "${symbol}" at position ${i} is not declared.`
+            );
+          }
+          return symbol === '' ? EPSILON : symbol;
+        });
+
+        return {
+          leftProductionRule: left,
+          rightProductionRule: updatedRight,
+        };
+      }
+    );
+
+    return {
+      terminals,
+      nonTerminals,
+      productionRules: processedRules,
+    };
   }
 }
