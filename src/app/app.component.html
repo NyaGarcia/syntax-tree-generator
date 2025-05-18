@@ -12,6 +12,7 @@
       <mat-tab-group [(selectedIndex)]="selectedTabIndex">
         <mat-tab label="Gramática">
           <app-grammar
+            class="app-grammar"
             (grammar)="generateTree($event)"
             [loadedGrammar]="loadedGrammar"
           ></app-grammar>

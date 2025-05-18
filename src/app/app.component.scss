@@ -11,8 +11,11 @@ mat-toolbar {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 15px;
-  padding-top: 70px;
+  overflow: auto;
+
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 90vh;
 
   ::ng-deep mat-tab-header {
     margin-bottom: 20px;
@@ -20,16 +23,43 @@ mat-toolbar {
 
   .grammar-container {
     max-width: 100%;
+    height: 90vh;
+
+    ::ng-deep app-grammar {
+      display: block;
+      height: 70vh;
+    }
+
+    ::ng-deep div.mat-mdc-tab-body-content {
+      overflow: visible;
+    }
+
+    ::ng-deep mat-tab-body.mat-mdc-tab-body-active {
+      overflow-y: visible;
+      overflow: visible;
+    }
+
+    ::ng-deep div.mat-mdc-tab-body-wrapper {
+      overflow: visible;
+    }
   }
 }
 
 @media (max-width: 400px) {
   .container {
-    flex-direction: column;
-    padding-top: 15px;
+    display: block;
 
+    padding-top: 15px;
+    overflow: auto;
     .tree-container {
       margin-top: 20px;
+    }
+    .grammar-container {
+      height: fit-content;
+      ::ng-deep app-grammar {
+        display: block;
+        height: fit-content;
+      }
     }
   }
 }
