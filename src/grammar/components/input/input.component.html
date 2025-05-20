@@ -1,24 +1,40 @@
 <div class="dropdown-container">
-  <ng-multiselect-dropdown
+  <!--   <ng-multiselect-dropdown
     [placeholder]="'Selecciona un no terminal'"
     [settings]="leftProductionRuleDropdownSettings"
     [data]="dropdownNonTerminals"
     [(ngModel)]="leftProductionRule"
   >
   </ng-multiselect-dropdown>
-  <mat-icon
-    aria-hidden="false"
-    aria-label="Arrow right icon"
-    fontIcon="arrow_right_alt"
-  ></mat-icon>
+
   <ng-multiselect-dropdown
     [placeholder]="'Selecciona los símbolos'"
     [settings]="rightProductionRuleDropdownSettings"
     [data]="dropdownSymbols"
     [(ngModel)]="rightProductionRule"
   >
-  </ng-multiselect-dropdown>
-  <button mat-raised-button (click)="addRuleInput()">+</button>
+  </ng-multiselect-dropdown> -->
+
+  <app-multi-select
+    [label]="'Introduce un no terminal'"
+    [data]="dropdownNonTerminals"
+    [maxLength]="1"
+    [required]="true"
+    #leftProductionRule
+  >
+  </app-multi-select>
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Arrow right icon"
+    fontIcon="arrow_right_alt"
+  ></mat-icon>
+  <app-multi-select
+    [label]="'Introduce símbolos'"
+    [data]="dropdownSymbols"
+    #rightProductionRule
+  >
+  </app-multi-select>
+  <button mat-raised-button (click)="validateRule()">+</button>
 </div>
 <div class="rules-container">
   @for (rule of productionRules; track $index) {

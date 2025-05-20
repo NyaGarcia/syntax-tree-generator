@@ -6,6 +6,7 @@ import {
   Input,
   Output,
   QueryList,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,6 +28,8 @@ import {
   ProductionRule,
   UnformattedGrammar,
 } from '../../interfaces/production-rule.interface';
+import { MultiSelectComponent } from '../multi-select/multi-select.component';
+import { EPSILON } from '../../../app/utils/constants';
 
 interface IDropdownItem {
   id: string;
@@ -45,6 +48,7 @@ interface IDropdownItem {
     MatButtonModule,
     CommonModule,
     NgMultiSelectDropDownModule,
+    MultiSelectComponent,
   ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
@@ -52,8 +56,8 @@ interface IDropdownItem {
 export class InputComponent {
   private firstEmission = true;
 
-  dropdownSymbols: IDropdownItem[] = [];
-  dropdownNonTerminals: IDropdownItem[] = [];
+  dropdownSymbols: string[] = [];
+  dropdownNonTerminals: string[] = [];
 
   @Input() terminals: string[];
   @Input() nonTerminals: string[];
@@ -63,74 +67,31 @@ export class InputComponent {
   @Input() deletedTerminal: string;
   @Input() deletedNonTerminal: string;
 
-  rightProductionRule: IDropdownItem[];
-  rightProductionRuleDropdownSettings: IDropdownSettings;
-
-  leftProductionRule: IDropdownItem[];
-  leftProductionRuleDropdownSettings: IDropdownSettings;
-
   productionRules: ProductionRule[] = [];
-
-  //nextRuleId: number = 0;
 
   @Output() formValue: EventEmitter<UnformattedGrammar> =
     new EventEmitter<UnformattedGrammar>();
 
   @ViewChildren('focusInput') focusInput: QueryList<ElementRef>;
+  @ViewChild('leftProductionRule') leftProductionRule: MultiSelectComponent;
+  @ViewChild('rightProductionRule') rightProductionRule: MultiSelectComponent;
 
   constructor() {}
 
-  ngOnInit() {
-    this.leftProductionRuleDropdownSettings = {
-      singleSelection: true,
-      idField: 'id',
-      textField: 'text',
-      itemsShowLimit: 1,
-      allowSearchFilter: true,
-    };
-
-    this.rightProductionRuleDropdownSettings = {
-      singleSelection: false,
-      idField: 'id',
-      textField: 'text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true,
-    };
-  }
-
-  private formatSymbols() {
-    return this.terminals.map((symbol) => ({
-      id: crypto.randomUUID(),
-      text: symbol,
-    }));
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
     this.updateRules();
     this.updateSymbols();
   }
 
-  /*   ngAfterViewInit() {
-    this.focusInput.changes.subscribe((list: QueryList<ElementRef>) =>
-      this.focusNextInput(list)
-    );
-  } */
-
   private updateSymbols() {
     if (this.nonTerminals) {
-      this.dropdownNonTerminals = this.nonTerminals.map((nonTerminal) => ({
-        id: crypto.randomUUID(),
-        text: nonTerminal,
-      }));
+      this.dropdownNonTerminals = this.nonTerminals;
     }
 
     if (this.terminals) {
-      this.dropdownSymbols = [
-        ...this.formatSymbols(),
-        ...this.dropdownNonTerminals,
-      ];
+      this.dropdownSymbols = [...this.terminals, ...this.dropdownNonTerminals];
     }
   }
 
@@ -169,11 +130,15 @@ export class InputComponent {
     this.firstEmission = false;
   }
 
+  validateRule() {
+    if (!this.leftProductionRule.hasError()) {
+      this.addRuleInput();
+    }
+  }
+
   addRuleInput() {
-    const leftProductionRule = this.leftProductionRule[0].text;
-    const rightProductionRule = this.rightProductionRule.map(
-      (item) => item.text
-    );
+    const leftProductionRule = this.leftProductionRule.value[0];
+    const rightProductionRule = this.formatRightProductionRule();
 
     this.productionRules = [
       ...this.productionRules,
@@ -224,6 +189,12 @@ export class InputComponent {
     URL.revokeObjectURL(url);
   }
 
+  private formatRightProductionRule() {
+    return this.rightProductionRule.value.length === 0
+      ? [EPSILON]
+      : this.rightProductionRule.value;
+  }
+
   private emitGrammar() {
     const unformattedGrammar = {
       terminals: this.terminals,
@@ -235,17 +206,12 @@ export class InputComponent {
   }
 
   private clearProductionRules() {
-    this.leftProductionRule = [];
-    this.rightProductionRule = [];
+    this.leftProductionRule.clear();
+    this.rightProductionRule.clear();
   }
 
   private clearDeletedSymbol() {
     this.deletedTerminal = '';
     this.deletedNonTerminal = '';
   }
-
-  /*   private focusNextInput(list: QueryList<ElementRef>) {
-    list.toArray()[this.nextRuleId].nativeElement.focus();
-    this.cdRef.detectChanges();
-  } */
 }

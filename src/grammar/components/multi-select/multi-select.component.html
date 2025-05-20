@@ -1,0 +1,41 @@
+<form>
+  <mat-form-field class="example-chip-list" appearance="outline">
+    <mat-label>{{ label }}</mat-label>
+
+    <mat-chip-grid
+      #chipGrid
+      aria-label="Fruit selection"
+      class="inline-chip-grid"
+    >
+      @for (symbol of symbols; track symbol) {
+      <mat-chip-row (removed)="remove(symbol)">
+        {{ symbol }}
+        <button matChipRemove [attr.aria-label]="'remove ' + symbol">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      }
+
+      <input
+        #symbolInput
+        [formControl]="symbolControl"
+        [matChipInputFor]="chipGrid"
+        [matAutocomplete]="auto"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"
+        class="chip-input"
+      />
+    </mat-chip-grid>
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selected($event)"
+    >
+      @for (symbol of filteredSymbols | async; track symbol) {
+      <mat-option [value]="symbol" [disabled]="!canAddMoreSymbols()">{{
+        symbol
+      }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

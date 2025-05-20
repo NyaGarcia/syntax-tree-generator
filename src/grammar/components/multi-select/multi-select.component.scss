@@ -1,0 +1,40 @@
+form {
+  width: 300px;
+}
+
+.example-chip-list {
+  width: 100%;
+}
+
+/* ✅ Makes the chip area scrollable horizontally */
+.chip-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin; /* Firefox */
+  padding-bottom: 10px;
+}
+
+/* ✅ Forces chips to appear inline */
+.inline-chip-grid {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Prevent chip row wrapping */
+mat-chip-row {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ✅ Input inline with chips */
+.chip-input {
+  min-width: 120px;
+  flex: 0 0 auto;
+}
+
+::ng-deep .mdc-evolution-chip-set .mdc-evolution-chip-set__chips {
+  //flex-wrap: nowrap;
+}
