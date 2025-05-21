@@ -31,9 +31,9 @@ import {
 import { MultiSelectComponent } from '../multi-select/multi-select.component';
 import { EPSILON } from '../../../app/utils/constants';
 
-interface IDropdownItem {
-  id: string;
-  text: string;
+interface GrammarValidationResult {
+  valid: boolean;
+  errors: string[];
 }
 
 @Component({
@@ -68,6 +68,7 @@ export class InputComponent {
   @Input() deletedNonTerminal: string;
 
   productionRules: ProductionRule[] = [];
+  validationErrors: string[] = [];
 
   @Output() formValue: EventEmitter<UnformattedGrammar> =
     new EventEmitter<UnformattedGrammar>();
@@ -83,6 +84,42 @@ export class InputComponent {
   ngOnChanges() {
     this.updateRules();
     this.updateSymbols();
+  }
+
+  validateGrammar(): GrammarValidationResult {
+    const errors: string[] = [];
+
+    if (!this.nonTerminals || this.nonTerminals.length === 0) {
+      errors.push('No se ha definido ningún no terminal');
+    }
+
+    if (!this.productionRules || this.productionRules.length === 0) {
+      errors.push('No se ha definido ninguna regla de producción');
+    }
+
+    const lhsSet = new Set(
+      this.productionRules.map((rule) => rule.leftProductionRule)
+    );
+    const rhsSymbols = new Set<string>();
+
+    for (const rule of this.productionRules) {
+      for (const symbol of rule.rightProductionRule) {
+        if (this.nonTerminals.includes(symbol)) {
+          rhsSymbols.add(symbol);
+        }
+      }
+    }
+
+    for (const symbol of rhsSymbols) {
+      if (!lhsSet.has(symbol)) {
+        errors.push(`El no terminal "${symbol}" no se puede derivar`);
+      }
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors,
+    };
   }
 
   private updateSymbols() {
@@ -127,8 +164,14 @@ export class InputComponent {
   }
 
   submit() {
-    this.emitGrammar();
-    this.firstEmission = false;
+    const { errors, valid } = this.validateGrammar();
+
+    this.validationErrors = errors;
+
+    if (valid) {
+      this.emitGrammar();
+      this.firstEmission = false;
+    }
   }
 
   validateRule() {

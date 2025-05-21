@@ -45,15 +45,15 @@
   }
 </div>
 <div class="btn-container">
-  <button
-    [disabled]="productionRules.length === 0"
-    mat-raised-button
-    color="primary"
-    (click)="submit()"
-  >
+  <button mat-raised-button color="primary" (click)="submit()">
     Generar Árbol
   </button>
   <button mat-raised-button (click)="downloadGrammar()">
     Descargar Gramática
   </button>
+</div>
+<div class="error-wrapper" *ngIf="validationErrors.length > 0">
+  <mat-error *ngFor="let error of validationErrors">
+    {{ error }}
+  </mat-error>
 </div>
