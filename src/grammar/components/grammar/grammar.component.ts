@@ -100,8 +100,6 @@ export class GrammarComponent {
     if (!this.terminals.includes('ε')) {
       this.terminals = [...this.terminals, 'ε'];
     }
-
-    console.log(this.terminals);
   }
 
   private emitGrammar(value: UnformattedGrammar) {
