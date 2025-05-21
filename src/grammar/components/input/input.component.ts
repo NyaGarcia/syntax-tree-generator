@@ -154,7 +154,10 @@ export class InputComponent {
 
   removeRuleInput(index: number) {
     this.productionRules = this.productionRules.filter((_, i) => i !== index);
-    this.emitGrammar();
+
+    if (!this.firstEmission) {
+      this.emitGrammar();
+    }
   }
 
   get newRuleFormGroup(): FormGroup {
