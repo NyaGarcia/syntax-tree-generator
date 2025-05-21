@@ -1,4 +1,7 @@
-<div [ngClass]="darkMode ? 'dark' : 'light'" class="app">
+<div
+  [ngClass]="darkModeService.darkModeSignal() ? 'dark' : 'light'"
+  class="app"
+>
   <mat-toolbar>
     <app-dark-mode></app-dark-mode>
   </mat-toolbar>
