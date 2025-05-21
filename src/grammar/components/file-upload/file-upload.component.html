@@ -12,6 +12,15 @@
   </label>
 </div>
 
+<button
+  class="download-btn"
+  mat-raised-button
+  color="primary"
+  (click)="downloadGrammar()"
+>
+  Descargar Ejemplo
+</button>
+
 @if (fileList.length > 0) {
 <div class="file-list">
   <p>Selected Files:</p>

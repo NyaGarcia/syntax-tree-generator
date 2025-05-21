@@ -3,6 +3,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { SampleFileService } from '../../services/sample-file.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -15,6 +16,12 @@ export class FileUploadComponent {
   @Output() selectedFile = new EventEmitter<File>();
   isDragging = false;
   fileList: File[] = [];
+
+  constructor(private sampleFileService: SampleFileService) {}
+
+  downloadGrammar() {
+    this.sampleFileService.downloadSampleFile();
+  }
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();

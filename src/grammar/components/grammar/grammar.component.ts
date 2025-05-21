@@ -12,6 +12,7 @@ import {
 } from '../../interfaces/production-rule.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
+import { SampleFileService } from '../../services/sample-file.service';
 
 @Component({
   selector: 'app-grammar',
@@ -38,7 +39,7 @@ export class GrammarComponent {
   deletedTerminal: string;
   deletedNonTerminal: string;
 
-  constructor() {}
+  constructor(private sampleFileService: SampleFileService) {}
 
   ngOnChanges() {
     if (this.loadedGrammar) {
@@ -82,34 +83,11 @@ export class GrammarComponent {
   }
 
   loadGrammar() {
-    this.nonTerminals = ['A', 'B', 'C'];
-    this.terminals = ['a', 'b', 'c', 'ε'];
-    this.loadedProductionRules = [
-      {
-        leftProductionRule: 'A',
-        rightProductionRule: ['a', 'B'],
-      },
-      {
-        leftProductionRule: 'A',
-        rightProductionRule: ['ε'],
-      },
-      {
-        leftProductionRule: 'B',
-        rightProductionRule: ['b', 'A'],
-      },
-      {
-        leftProductionRule: 'B',
-        rightProductionRule: ['C'],
-      },
-      {
-        leftProductionRule: 'C',
-        rightProductionRule: ['c', 'C'],
-      },
-      {
-        leftProductionRule: 'C',
-        rightProductionRule: ['ε'],
-      },
-    ];
+    const { terminals, nonTerminals, productionRules } =
+      this.sampleFileService.getGrammar();
+    this.nonTerminals = terminals;
+    this.terminals = nonTerminals;
+    this.loadedProductionRules = productionRules;
   }
 
   private loadData() {

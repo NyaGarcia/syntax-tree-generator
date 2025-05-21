@@ -30,6 +30,7 @@ import {
 } from '../../interfaces/production-rule.interface';
 import { MultiSelectComponent } from '../multi-select/multi-select.component';
 import { EPSILON } from '../../../app/utils/constants';
+import { SampleFileService } from '../../services/sample-file.service';
 
 interface GrammarValidationResult {
   valid: boolean;
@@ -77,7 +78,7 @@ export class InputComponent {
   @ViewChild('leftProductionRule') leftProductionRule: MultiSelectComponent;
   @ViewChild('rightProductionRule') rightProductionRule: MultiSelectComponent;
 
-  constructor() {}
+  constructor(private sampleFileService: SampleFileService) {}
 
   ngOnInit() {}
 
@@ -215,25 +216,13 @@ export class InputComponent {
   }
 
   downloadGrammar() {
-    const grammar = [
-      {
-        terminals: this.terminals,
-        nonTerminals: this.nonTerminals,
-        productionRules: this.productionRules,
-      },
-    ];
+    const grammar = {
+      terminals: this.terminals,
+      nonTerminals: this.nonTerminals,
+      productionRules: this.productionRules,
+    };
 
-    const grammarString = JSON.stringify(grammar);
-    const blob = new Blob([grammarString], { type: 'application/json' });
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'grammar.json';
-    a.click();
-
-    URL.revokeObjectURL(url);
+    this.sampleFileService.downloadGrammarFile(grammar);
   }
 
   private formatRightProductionRule() {
