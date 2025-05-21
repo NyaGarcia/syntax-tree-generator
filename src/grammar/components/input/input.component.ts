@@ -62,7 +62,7 @@ export class InputComponent {
   @Input() terminals: string[];
   @Input() nonTerminals: string[];
 
-  @Input() loadedProductionRules: ProductionRule[];
+  @Input() loadedProductionRules: ProductionRule[] | null;
 
   @Input() deletedTerminal: string;
   @Input() deletedNonTerminal: string;
@@ -133,9 +133,9 @@ export class InputComponent {
   }
 
   private updateRules() {
-    if (this.loadedProductionRules && this.loadedProductionRules.length > 0) {
+    if (this.loadedProductionRules) {
       this.productionRules = [...this.loadedProductionRules];
-      this.loadedProductionRules = [];
+      this.loadedProductionRules = null;
     }
 
     if (this.deletedTerminal || this.deletedNonTerminal) {
