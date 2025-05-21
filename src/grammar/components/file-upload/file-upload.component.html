@@ -7,19 +7,30 @@
 >
   <p>Arrastra y suelta el fichero aquí o</p>
   <label class="file-label">
-    <input type="file" (change)="onFileSelect($event)" multiple />
+    <input
+      type="file"
+      accept=".json,application/json"
+      (change)="onFileSelect($event)"
+      multiple
+    />
     Selecciona un fichero
   </label>
 </div>
 
-<button
-  class="download-btn"
-  mat-raised-button
-  color="primary"
-  (click)="downloadGrammar()"
->
-  Descargar Ejemplo
-</button>
+<div>
+  @if(errorMessage) {
+  <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  <button
+    class="download-btn"
+    mat-raised-button
+    color="primary"
+    (click)="downloadGrammar()"
+  >
+    Descargar Ejemplo
+  </button>
+</div>
 
 @if (fileList.length > 0) {
 <div class="file-list">

@@ -17,6 +17,8 @@ export class GrammarValidatorService {
   } {
     const errors: string[] = [];
 
+    console.log(grammar);
+
     if (
       !grammar ||
       !Array.isArray(grammar.terminals) ||

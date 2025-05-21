@@ -16,6 +16,7 @@ export class FileUploadComponent {
   @Output() selectedFile = new EventEmitter<File>();
   isDragging = false;
   fileList: File[] = [];
+  errorMessage: string;
 
   constructor(private sampleFileService: SampleFileService) {}
 
@@ -44,10 +45,27 @@ export class FileUploadComponent {
 
   onFileSelect(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files) {
-      const files = Array.from(input.files);
-      this.fileList.push(...files);
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+
+    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+      this.errorMessage = 'Solo se permiten archivos JSON';
+      return;
     }
+
+    this.errorMessage = '';
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result as string);
+        this.selectedFile.emit(parsed);
+      } catch (e) {
+        this.errorMessage = 'El archivo no contiene un JSON válido';
+      }
+    };
+    reader.readAsText(file);
   }
 
   removeFile(index: number): void {
