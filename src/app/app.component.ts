@@ -64,23 +64,10 @@ export class AppComponent {
 
     reader.onload = () => {
       try {
-        const raw = JSON.parse(reader.result as string)[0];
-
-        console.log(raw);
-
-        /* const unformattedGrammar: UnformattedGrammar = {
-          terminals: raw.terminals ?? [],
-          nonTerminals: raw.nonTerminals ?? [],
-          productionRules: (raw.productionRules ?? []).map((rule: any) => ({
-            leftProductionRule: rule.leftProductionRule ?? '',
-            rightProductionRule: rule.rightProductionRule ?? [],
-          })),
-        }; */
+        const raw = JSON.parse(reader.result as string);
 
         const validationResult: any =
           this.grammarValidatorService.validate(raw);
-
-        console.log(validationResult);
 
         if (validationResult.errors.length > 0) {
           this.validationErrors = validationResult.errors;
@@ -90,12 +77,12 @@ export class AppComponent {
           this.loadedGrammar = validationResult.unformattedGrammar;
         }
       } catch (err) {
-        console.error('Error parsing file as UnformattedGrammar:', err);
+        console.error('Error en parse del formato UnformattedGrammar:', err);
       }
     };
 
     reader.onerror = () => {
-      console.error(`Failed to read file: ${file.name}`);
+      console.error(`Error al leer el fichero: ${file.name}`);
     };
 
     reader.readAsText(file);
