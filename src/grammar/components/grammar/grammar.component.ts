@@ -85,8 +85,8 @@ export class GrammarComponent {
   loadGrammar() {
     const { terminals, nonTerminals, productionRules } =
       this.sampleFileService.getGrammar();
-    this.nonTerminals = terminals;
-    this.terminals = nonTerminals;
+    this.nonTerminals = nonTerminals;
+    this.terminals = terminals;
     this.loadedProductionRules = productionRules;
   }
 
