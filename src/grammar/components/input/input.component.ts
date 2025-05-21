@@ -96,8 +96,9 @@ export class InputComponent {
   }
 
   private updateRules() {
-    if (this.loadedProductionRules) {
+    if (this.loadedProductionRules && this.loadedProductionRules.length > 0) {
       this.productionRules = [...this.loadedProductionRules];
+      this.loadedProductionRules = [];
     }
 
     if (this.deletedTerminal || this.deletedNonTerminal) {
