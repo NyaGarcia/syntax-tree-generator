@@ -27,8 +27,7 @@
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-              "src/themes/dark-theme.scss",
-              "src/themes/light-theme.scss",
+              "src/themes/theme.scss",
               "src/themes/ng-multiselect-dropdown.theme.scss"
             ],
             "scripts": []

@@ -1,0 +1,58 @@
+@use "@angular/material" as mat;
+@use "sass:map";
+
+@include mat.core();
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: mat.define-palette(mat.$pink-palette),
+      accent: mat.define-palette(mat.$blue-grey-palette),
+      warn: mat.define-palette(mat.$red-palette),
+    ),
+    density: -2,
+    typography: mat.define-typography-config(),
+  )
+);
+
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: mat.define-palette(mat.$indigo-palette),
+      accent: mat.define-palette(mat.$purple-palette),
+      warn: mat.define-palette(mat.$red-palette),
+    ),
+    density: -2,
+    typography: mat.define-typography-config(),
+  )
+);
+
+.light {
+  @include mat.all-component-colors($light-theme);
+
+  background-color: #ffffff;
+  color: #2c2c2c;
+}
+
+.dark {
+  @include mat.all-component-colors($dark-theme);
+
+  background-color: #2c2c2c;
+  color: #d6d6d6;
+
+  .terminal-container {
+    .terminal {
+      background-color: #e91e63 !important;
+    }
+  }
+
+  svg {
+    circle.node {
+      stroke: #e91e63;
+    }
+
+    .node text {
+      fill: #fff;
+    }
+  }
+}
