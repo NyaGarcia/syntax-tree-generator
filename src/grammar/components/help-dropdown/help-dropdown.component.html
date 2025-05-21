@@ -1,13 +1,110 @@
 <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Ayuda con la gramática</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div>
-        Reglas:
-        <ul>
-            <li>Los símbolos terminales deben escribirse en mayúsculas.</li>
-            <li>Los símbolos no terminales deben escribirse en minúsculas</li>
-            <li>...</li>
-        </ul>
-    </div>
-  </mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Ayuda con la gramática</mat-panel-title>
+  </mat-expansion-panel-header>
+  <div>
+    <h3>Gramática</h3>
+    <ul>
+      <li>Para borrar la gramática, se debe pulsar el botón de la papelera.</li>
+      <li>
+        Para rellenar todos los campos con una gramática de ejemplo, se debe
+        pulsar el botón "Ejemplo".
+      </li>
+      <li>
+        Para descargar un fichero .json con la gramática introducida, se debe
+        pulsar el botón "Descargar Gramática".
+      </li>
+    </ul>
+    <h3>Símbolos</h3>
+    <h4>No terminales</h4>
+    <ol>
+      <li>Haz clic en el campo bajo el título "No Terminales".</li>
+      <li>Escribe el no terminal que quieras.</li>
+      <li>
+        Para añadirlo a la lista de no terminales disponibles, se debe hacer
+        clic en el botón +, o pulsar la tecla enter.
+      </li>
+      <li>Este campo no puede estar vacío.</li>
+      <li>No se permite añadir el mismo no terminal dos veces.</li>
+      <li>
+        Una vez añadido el no terminal a la lista, se mostrará debajo del campo.
+      </li>
+      <li>Para eliminar el no terminal, se debe hacer clic en la x.</li>
+    </ol>
+    <h4>Terminales</h4>
+    <ol>
+      <li>Haz clic en el campo bajo el título "Terminales".</li>
+      <li>Escribe el terminal que quieras.</li>
+      <li>
+        Para añadirlo a la lista de terminales disponibles, se debe hacer clic
+        en el botón +, o pulsar la tecla enter.
+      </li>
+      <li>
+        Este campo puede estar vacío, y se le asignará automáticamente el valor
+        ε.
+      </li>
+      <li>No se permite añadir el mismo terminal dos veces.</li>
+      <li>
+        Una vez añadido el terminal a la lista, se mostrará debajo del campo.
+      </li>
+      <li>Para eliminar el terminal, se debe hacer clic en la x.</li>
+    </ol>
+    <h3>Reglas de Producción</h3>
+    <h4>No terminal</h4>
+    <ol>
+      <li>Haz click en el campo con la etiqueta "Introduce un no terminal".</li>
+      <li>
+        Se abrirá una lista con los símbolos no terminales disponibles (por
+        ejemplo: S, A, B, etc.).
+      </li>
+      <li>Selecciona uno. Solo se permite un símbolo (longitud máxima: 1).</li>
+      <li>
+        Si no hay opciones disponibles, asegúrate de haber definido los no
+        terminales previamente.
+      </li>
+    </ol>
+    <h4>Símbolos</h4>
+    <ol>
+      <li>Haz click en el campo con la etiqueta "Introduce símbolos".</li>
+      <li>
+        Se abrirá una lista de símbolos, que incluye tanto terminales como no
+        terminales.
+      </li>
+      <li>
+        Se pueden seleccionar varios símbolos, que representarán el lado derecho
+        de una regla de producción (por ejemplo: A B, a, ε, etc.).
+      </li>
+      <li>
+        Si se quiere indicar una producción vacía, se puede dejar el campo vacío
+        y se asignará ε automáticamente.
+      </li>
+    </ol>
+    <h4>Añadir la regla</h4>
+    <ul>
+      <li>
+        Una vez seleccionados todos los símbolos, se debe hacer clic en el botón
+        + para agregar la regla de producción al conjunto de reglas.
+      </li>
+      <li>
+        Después de agregar la regla, los campos se limpiarán automáticamente
+        para permitir la definición de una nueva regla.
+      </li>
+    </ul>
+    <h4>Errores comunes</h4>
+    <ul>
+      <li>Dejar el campo izquierdo vacío.</li>
+      <li>No haber definido terminales o no terminales previamente.</li>
+      <li>
+        Añadir no terminales que no se puedan derivar (carecen de regla de
+        producción correspondiente).
+      </li>
+    </ul>
+    <h4>Generación del árbol sintáctico</h4>
+    <ul>
+      <li>
+        Para generar el árbol sintáctico de la gramática, se debe pulsar el
+        botón "Generar Árbol"
+      </li>
+    </ul>
+  </div>
+</mat-expansion-panel>
