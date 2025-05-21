@@ -43,6 +43,8 @@ export class AppComponent {
   validationErrors: string[] = [];
   dialog = inject(MatDialog);
 
+  darkMode = this.darkModeService.darkModeSignal();
+
   constructor(
     public darkModeService: DarkModeService,
     private grammarValidatorService: GrammarValidatorService
