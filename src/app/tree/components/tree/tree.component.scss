@@ -6,6 +6,14 @@
   width: 100%;
 }
 
+.btn-container {
+  display: flex;
+
+  button {
+    margin: 5px;
+  }
+}
+
 .tree-container {
   display: flex;
   flex-direction: column;

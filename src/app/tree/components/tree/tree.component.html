@@ -20,8 +20,10 @@
   <span *ngIf="options.length === 0"
     >Fin de la derivación: {{ derivedString }}</span
   >
-  <button mat-raised-button (click)="clear()">Reiniciar árbol</button>
-  <button mat-raised-button color="primary" (click)="downloadSvg()">
-    Descargar Árbol PDF
-  </button>
+  <div class="btn-container">
+    <button mat-raised-button (click)="clear()">Reiniciar árbol</button>
+    <button mat-raised-button color="primary" (click)="downloadSvg()">
+      Descargar Árbol SVG
+    </button>
+  </div>
 </div>
