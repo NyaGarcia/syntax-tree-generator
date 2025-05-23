@@ -16,6 +16,8 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { EPSILON } from '../../../utils/constants';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { Terminal } from '../../../../grammar/symbols/terminal';
+import { NonTerminal } from '../../../../grammar/symbols/non-terminal';
 
 interface HierarchyDatum {
   name: string;
@@ -176,6 +178,8 @@ export class TreeComponent {
       .enter()
       .append('g')
       .attr('class', 'node')
+      .classed('terminal', (d: any) => d.data instanceof Terminal)
+      .classed('non-terminal', (d: any) => d.data instanceof NonTerminal)
       .classed(
         'current',
         (d: any) => currentNode !== undefined && currentNode.id === d.id
@@ -208,11 +212,11 @@ export class TreeComponent {
         return d.data.value;
       });
 
-    console.log(currentNode);
-
     // Update
     const nodeUpdate = nodeEnter
       .merge(node as any)
+      .classed('terminal', (d: any) => d.data instanceof Terminal)
+      .classed('non-terminal', (d: any) => d.data instanceof NonTerminal)
       .classed(
         'current',
         (d: any) => currentNode !== undefined && currentNode.id === d.id

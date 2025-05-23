@@ -42,9 +42,16 @@
   margin: auto;
 }
 
-:host ::ng-deep .node circle {
+:host ::ng-deep .node.terminal circle {
   fill: #fff;
-  stroke: steelblue;
+  stroke: green !important;
+  stroke-width: 3px;
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+
+:host ::ng-deep .node.non-terminal circle {
+  fill: #fff;
+  stroke: steelblue !important;
   stroke-width: 3px;
   transition: stroke 0.3s ease, fill 0.3s ease;
 }
