@@ -14,6 +14,8 @@ import { Grammar } from '../../../../grammar/grammar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { EPSILON } from '../../../utils/constants';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 interface HierarchyDatum {
   name: string;
@@ -365,5 +367,50 @@ export class TreeComponent {
 
     traverse(root);
     return leaves;
+  }
+
+  @ViewChild('chart', { static: true }) chartRef!: ElementRef;
+
+  downloadSvg(): void {
+    const chartEl = this.chartRef.nativeElement as HTMLElement;
+    const svg = chartEl.querySelector('svg');
+    if (!svg) {
+      console.error('SVG not found');
+      return;
+    }
+
+    const clonedSvg = svg.cloneNode(true) as SVGSVGElement;
+
+    // Manually apply known SCSS styles from your file
+    clonedSvg.querySelectorAll('.node circle').forEach((el) => {
+      el.setAttribute('fill', '#fff');
+      el.setAttribute('stroke', 'steelblue');
+      el.setAttribute('stroke-width', '3px');
+    });
+
+    clonedSvg.querySelectorAll('.node text').forEach((el) => {
+      el.setAttribute('font-size', '12px');
+      el.setAttribute('font-family', 'sans-serif');
+    });
+
+    clonedSvg.querySelectorAll('.link').forEach((el) => {
+      el.setAttribute('fill', 'none');
+      el.setAttribute('stroke', '#ccc');
+      el.setAttribute('stroke-width', '2px');
+    });
+
+    // Serialize and trigger download
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(clonedSvg);
+    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'tree-diagram.svg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 }

@@ -46,13 +46,16 @@ $light-theme: mat.define-light-theme(
     }
   }
 
-  svg {
-    circle.node {
-      stroke: #e91e63;
-    }
+  .container {
+    background-color: #2c2c2c;
+    svg {
+      circle.node {
+        stroke: #e91e63;
+      }
 
-    .node text {
-      fill: #fff;
+      .node text {
+        fill: #fff;
+      }
     }
   }
 }
