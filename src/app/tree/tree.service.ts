@@ -99,10 +99,4 @@ export class TreeService {
     this.expandableNodes = new Stack();
     this.expandedNodes = new Stack();
   }
-
-  private updateDerivedTerminals(value: string) {
-    value === EPSILON
-      ? (this.derivedString += '')
-      : (this.derivedString += value);
-  }
 }
