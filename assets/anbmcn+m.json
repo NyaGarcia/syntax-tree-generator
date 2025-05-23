@@ -1,12 +1,10 @@
-[
-  {
-    "terminals": ["a", "b", "c"],
-    "nonTerminals": ["S", "B"],
-    "productionRules": [
-      { "leftProductionRule": "S", "rightProductionRule": ["a", "S", "c"] },
-      { "leftProductionRule": "S", "rightProductionRule": ["B"] },
-      { "leftProductionRule": "B", "rightProductionRule": ["b", "B", "c"] },
-      { "leftProductionRule": "B", "rightProductionRule": ["ε"] }
-    ]
-  }
-]
+{
+  "terminals": ["a", "b", "c"],
+  "nonTerminals": ["S", "B"],
+  "productionRules": [
+    { "leftProductionRule": "S", "rightProductionRule": ["a", "S", "c"] },
+    { "leftProductionRule": "S", "rightProductionRule": ["B"] },
+    { "leftProductionRule": "B", "rightProductionRule": ["b", "B", "c"] },
+    { "leftProductionRule": "B", "rightProductionRule": ["ε"] }
+  ]
+}

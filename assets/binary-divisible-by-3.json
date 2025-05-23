@@ -1,15 +1,13 @@
-[
-  {
-    "terminals": ["0", "1"],
-    "nonTerminals": ["Q0", "Q1", "Q2"],
-    "productionRules": [
-      { "leftProductionRule": "Q0", "rightProductionRule": ["0", "Q0"] },
-      { "leftProductionRule": "Q0", "rightProductionRule": ["1", "Q1"] },
-      { "leftProductionRule": "Q0", "rightProductionRule": ["ε"] },
-      { "leftProductionRule": "Q1", "rightProductionRule": ["0", "Q2"] },
-      { "leftProductionRule": "Q1", "rightProductionRule": ["1", "Q0"] },
-      { "leftProductionRule": "Q2", "rightProductionRule": ["0", "Q1"] },
-      { "leftProductionRule": "Q2", "rightProductionRule": ["1", "Q2"] }
-    ]
-  }
-]
+{
+  "terminals": ["0", "1"],
+  "nonTerminals": ["Q0", "Q1", "Q2"],
+  "productionRules": [
+    { "leftProductionRule": "Q0", "rightProductionRule": ["0", "Q0"] },
+    { "leftProductionRule": "Q0", "rightProductionRule": ["1", "Q1"] },
+    { "leftProductionRule": "Q0", "rightProductionRule": ["ε"] },
+    { "leftProductionRule": "Q1", "rightProductionRule": ["0", "Q2"] },
+    { "leftProductionRule": "Q1", "rightProductionRule": ["1", "Q0"] },
+    { "leftProductionRule": "Q2", "rightProductionRule": ["0", "Q1"] },
+    { "leftProductionRule": "Q2", "rightProductionRule": ["1", "Q2"] }
+  ]
+}
