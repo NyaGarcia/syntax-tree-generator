@@ -46,6 +46,13 @@
   fill: #fff;
   stroke: steelblue;
   stroke-width: 3px;
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+
+:host ::ng-deep .node.current circle {
+  stroke: orange !important;
+  stroke-width: 4px;
+  fill: #fff3e0;
 }
 
 :host ::ng-deep .node text {

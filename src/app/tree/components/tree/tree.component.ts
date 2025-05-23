@@ -169,10 +169,17 @@ export class TreeComponent {
     const node = this.svg.selectAll('g.node').data(nodes, (d: any) => d.id);
 
     // Enter any new nodes at the parent's previous position.
+
+    const currentNode = this.treeService.getCurrentNode();
+
     const nodeEnter = node
       .enter()
       .append('g')
       .attr('class', 'node')
+      .classed(
+        'current',
+        (d: any) => currentNode !== undefined && currentNode.id === d.id
+      )
       .attr('transform', (d: any) => {
         return 'translate(' + source.x0 + ',' + source.y0 + ')';
       })
@@ -201,8 +208,15 @@ export class TreeComponent {
         return d.data.value;
       });
 
+    console.log(currentNode);
+
     // Update
-    const nodeUpdate = nodeEnter.merge(node);
+    const nodeUpdate = nodeEnter
+      .merge(node as any)
+      .classed(
+        'current',
+        (d: any) => currentNode !== undefined && currentNode.id === d.id
+      );
 
     // Transition to the proper position for the nodes
     nodeUpdate
