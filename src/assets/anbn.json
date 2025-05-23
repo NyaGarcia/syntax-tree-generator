@@ -1,10 +1,8 @@
-[
-  {
-    "terminals": ["a", "b"],
-    "nonTerminals": ["S"],
-    "productionRules": [
-      { "leftProductionRule": "S", "rightProductionRule": ["a", "S", "b"] },
-      { "leftProductionRule": "S", "rightProductionRule": ["ε"] }
-    ]
-  }
-]
+{
+  "terminals": ["a", "b"],
+  "nonTerminals": ["S"],
+  "productionRules": [
+    { "leftProductionRule": "S", "rightProductionRule": ["a", "S", "b"] },
+    { "leftProductionRule": "S", "rightProductionRule": ["ε"] }
+  ]
+}
