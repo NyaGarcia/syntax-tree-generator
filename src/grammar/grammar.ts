@@ -14,9 +14,15 @@ export class Grammar {
   private rules: Rule[] = [];
   private productionRules: ProductionRule[];
   private initialSymbol: NonTerminal;
+  private unformattedGrammar: UnformattedGrammar;
 
   public constructor(value: UnformattedGrammar) {
+    this.unformattedGrammar = value;
     this.initGrammar(value);
+  }
+
+  public getUnformattedGrammar(): UnformattedGrammar {
+    return this.unformattedGrammar;
   }
 
   public getTerminals() {

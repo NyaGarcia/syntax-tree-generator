@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FileUploadComponent } from '../../../grammar/components/file-upload/file-upload.component';
 import { GrammarComponent } from '../../../grammar/components/grammar/grammar.component';
+import { GrammarStateService } from '../../../grammar/services/grammar-state.service';
 
 @Component({
   selector: 'app-home-page',
@@ -29,8 +30,17 @@ export class HomePageComponent {
 
   constructor(
     public darkModeService: DarkModeService,
-    private grammarValidatorService: GrammarValidatorService
+    private grammarValidatorService: GrammarValidatorService,
+    private grammarState: GrammarStateService
   ) {}
+
+  ngOnInit() {
+    const grammar = this.grammarState.get();
+
+    if (grammar) {
+      this.loadedGrammar = grammar.getUnformattedGrammar();
+    }
+  }
 
   loadFile(file: File) {
     this.displayTree = false;
