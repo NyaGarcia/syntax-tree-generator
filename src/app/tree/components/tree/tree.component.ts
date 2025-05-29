@@ -18,6 +18,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Terminal } from '../../../../grammar/symbols/terminal';
 import { NonTerminal } from '../../../../grammar/symbols/non-terminal';
+import { GrammarStateService } from '../../../../grammar/services/grammar-state.service';
 
 interface HierarchyDatum {
   name: string;
@@ -39,7 +40,7 @@ interface HierarchyDatum {
   styleUrl: './tree.component.scss',
 })
 export class TreeComponent {
-  @Input() grammar: Grammar;
+  grammar: Grammar;
 
   @ViewChild('chart', { static: true }) private chartContainer: ElementRef;
 
@@ -63,14 +64,15 @@ export class TreeComponent {
 
   derivedString: string;
 
-  constructor(public treeService: TreeService) {}
+  constructor(
+    public treeService: TreeService,
+    private grammarState: GrammarStateService
+  ) {}
 
-  ngOnInit() {}
-
-  ngOnChanges() {
+  ngOnInit() {
+    this.grammar = this.grammarState.get();
     this.treeService.loadGrammar(this.grammar);
-
-    this.clear();
+    this.render();
   }
 
   expandNode(rule: Rule) {

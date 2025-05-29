@@ -98,5 +98,6 @@ export class TreeService {
     this.currentNode = null;
     this.expandableNodes = new Stack();
     this.expandedNodes = new Stack();
+    this.updateExpandedNodes();
   }
 }

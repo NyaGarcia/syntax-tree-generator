@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="grammar-container">
+    <h1>Herramienta para el Estudio de Gramáticas Formales</h1>
+    <h3>Bienvenidos a la Versión Beta</h3>
+    <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+      <mat-tab label="Gramática">
+        <app-grammar
+          class="app-grammar"
+          [loadedGrammar]="loadedGrammar"
+        ></app-grammar>
+      </mat-tab>
+      <mat-tab label="Subir un fichero">
+        <app-file-upload (selectedFile)="loadFile($event)"></app-file-upload>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,98 +1,35 @@
-import { Component, inject } from '@angular/core';
-import { GrammarComponent } from '../grammar/components/grammar/grammar.component';
-import { TreeComponent } from './tree/components/tree/tree.component';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { DarkModeComponent } from './dark-mode/dark-mode.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { DarkModeService } from './dark-mode/dark-mode.service';
-import { Grammar } from '../grammar/grammar';
 
-import { MatTabsModule } from '@angular/material/tabs';
-import { FileUploadComponent } from '../grammar/components/file-upload/file-upload.component';
-import {
-  ProductionRule,
-  UnformattedGrammar,
-} from '../grammar/interfaces/production-rule.interface';
-import { EPSILON } from './utils/constants';
-import { GrammarValidatorService } from '../grammar/services/grammar-validator.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ErrorModalComponent } from '../grammar/components/error-modal/error-modal.component';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { DarkModeService } from './dark-mode/dark-mode.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    GrammarComponent,
-    TreeComponent,
     CommonModule,
+    RouterModule,
     DarkModeComponent,
     MatToolbarModule,
-    MatTabsModule,
-    FileUploadComponent,
+    MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'syntax-tree-generator';
-  grammar: Grammar;
-  loadedGrammar: UnformattedGrammar;
-  selectedTabIndex: number = 0;
-  displayTree: boolean = false;
+  constructor(public darkModeService: DarkModeService, public router: Router) {}
 
-  validationErrors: string[] = [];
-  dialog = inject(MatDialog);
-
-  constructor(
-    public darkModeService: DarkModeService,
-    private grammarValidatorService: GrammarValidatorService
-  ) {}
-
-  generateTree(value: Grammar) {
-    if (value.getRules().length !== 0) {
-      this.grammar = value;
-      this.displayTree = true;
-    } else {
-      this.displayTree = false;
-    }
+  isOnTreePage() {
+    return this.router.url === '/tree';
   }
 
-  loadFile(file: File) {
-    this.displayTree = false;
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      try {
-        const raw = JSON.parse(reader.result as string);
-
-        const validationResult: any =
-          this.grammarValidatorService.validate(raw);
-
-        if (validationResult.errors.length > 0) {
-          this.validationErrors = validationResult.errors;
-          this.displayDialog(this.validationErrors);
-        } else {
-          this.selectedTabIndex = 0;
-          this.loadedGrammar = validationResult.unformattedGrammar;
-        }
-      } catch (err) {
-        console.error('Error en parse del formato UnformattedGrammar:', err);
-      }
-    };
-
-    reader.onerror = () => {
-      console.error(`Error al leer el fichero: ${file.name}`);
-    };
-
-    reader.readAsText(file);
-  }
-
-  private displayDialog(errors: string[]) {
-    this.dialog.open(ErrorModalComponent, {
-      data: {
-        errors,
-      },
-    });
+  navigateHome() {
+    this.router.navigateByUrl('/');
   }
 }

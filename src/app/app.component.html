@@ -3,27 +3,24 @@
   class="app"
 >
   <mat-toolbar>
+    <div>
+      @if (isOnTreePage()) {
+      <button
+        mat-raised-button
+        aria-label="Navigate home"
+        (click)="navigateHome()"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Home icon"
+          fontIcon="arrow_back"
+        ></mat-icon>
+      </button>
+      }
+    </div>
+
     <app-dark-mode></app-dark-mode>
   </mat-toolbar>
-  <div class="container">
-    <div class="grammar-container">
-      <h1>Herramienta para el Estudio de Gramáticas Formales</h1>
-      <h3>Bienvenidos a la Versión Beta</h3>
-      <mat-tab-group [(selectedIndex)]="selectedTabIndex">
-        <mat-tab label="Gramática">
-          <app-grammar
-            class="app-grammar"
-            (grammar)="generateTree($event)"
-            [loadedGrammar]="loadedGrammar"
-          ></app-grammar>
-        </mat-tab>
-        <mat-tab label="Subir un fichero">
-          <app-file-upload (selectedFile)="loadFile($event)"></app-file-upload>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <div class="tree-container">
-      <app-tree *ngIf="displayTree" [grammar]="grammar"></app-tree>
-    </div>
-  </div>
+
+  <router-outlet></router-outlet>
 </div>

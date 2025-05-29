@@ -13,6 +13,8 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
 import { SampleFileService } from '../../services/sample-file.service';
+import { Router } from '@angular/router';
+import { GrammarStateService } from '../../services/grammar-state.service';
 
 @Component({
   selector: 'app-grammar',
@@ -29,7 +31,7 @@ import { SampleFileService } from '../../services/sample-file.service';
 })
 export class GrammarComponent {
   @Input() loadedGrammar: UnformattedGrammar;
-  @Output() grammar = new EventEmitter<Grammar>();
+
   formValue: any;
   terminals: string[] = [];
   nonTerminals: string[] = [];
@@ -39,7 +41,11 @@ export class GrammarComponent {
   deletedTerminal: string;
   deletedNonTerminal: string;
 
-  constructor(private sampleFileService: SampleFileService) {}
+  constructor(
+    private sampleFileService: SampleFileService,
+    private router: Router,
+    private grammarState: GrammarStateService
+  ) {}
 
   ngOnChanges() {
     if (this.loadedGrammar) {
@@ -49,7 +55,7 @@ export class GrammarComponent {
 
   onFormEvent(formValue: UnformattedGrammar) {
     this.formValue = formValue;
-    this.emitGrammar(formValue);
+    this.navigateToTree(formValue);
   }
 
   onTerminalFormEvent(terminals: string[]) {
@@ -72,14 +78,6 @@ export class GrammarComponent {
     this.terminals = [];
     this.nonTerminals = [];
     this.loadedProductionRules = [];
-
-    const emptyGrammar = {
-      terminals: this.terminals,
-      nonTerminals: this.nonTerminals,
-      productionRules: this.loadedProductionRules,
-    };
-
-    this.emitGrammar(emptyGrammar);
   }
 
   loadGrammar() {
@@ -102,8 +100,10 @@ export class GrammarComponent {
     }
   }
 
-  private emitGrammar(value: UnformattedGrammar) {
+  private navigateToTree(value: UnformattedGrammar) {
     const grammar = new Grammar(value);
-    this.grammar.emit(grammar);
+
+    this.grammarState.set(grammar);
+    this.router.navigateByUrl('/tree');
   }
 }
