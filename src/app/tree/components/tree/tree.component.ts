@@ -408,6 +408,12 @@ export class TreeComponent {
       el.setAttribute('stroke-width', '3px');
     });
 
+    clonedSvg.querySelectorAll('.node.terminal circle').forEach((el) => {
+      el.setAttribute('fill', '#fff');
+      el.setAttribute('stroke', 'green');
+      el.setAttribute('stroke-width', '3px');
+    });
+
     clonedSvg.querySelectorAll('.node text').forEach((el) => {
       el.setAttribute('font-size', '12px');
       el.setAttribute('font-family', 'sans-serif');
