@@ -20,7 +20,12 @@
   margin-left: 50px;
 
   mat-toolbar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: 20px;
+    white-space: nowrap;
 
     mat-icon {
       margin-right: 0;
