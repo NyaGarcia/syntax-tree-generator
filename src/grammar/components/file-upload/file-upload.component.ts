@@ -39,33 +39,16 @@ export class FileUploadComponent {
 
     if (event.dataTransfer?.files) {
       const files = Array.from(event.dataTransfer.files);
-      this.fileList.push(...files);
+
+      this.validate(files);
     }
   }
 
   onFileSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
+    const { files } = event.target as HTMLInputElement;
+    if (!files || files.length === 0) return;
 
-    const file = input.files[0];
-
-    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
-      this.errorMessage = 'Solo se permiten archivos JSON';
-      return;
-    }
-
-    this.errorMessage = '';
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const parsed = JSON.parse(reader.result as string);
-        this.selectedFile.emit(parsed);
-      } catch (e) {
-        this.errorMessage = 'El archivo no contiene un JSON válido';
-      }
-    };
-    reader.readAsText(file);
+    this.validate(Array.from(files));
   }
 
   removeFile(index: number): void {
@@ -74,5 +57,20 @@ export class FileUploadComponent {
 
   emitFile(index: number): void {
     this.selectedFile.emit(this.fileList[index]);
+  }
+
+  private validate(files: File[]) {
+    const jsonFiles = files.filter(
+      (file) =>
+        file.type === 'application/json' ||
+        file.name.toLowerCase().endsWith('.json')
+    );
+
+    if (jsonFiles.length === 0) {
+      this.errorMessage = 'Solo se permiten archivos JSON';
+    } else {
+      this.errorMessage = '';
+      this.fileList = [...this.fileList, ...jsonFiles];
+    }
   }
 }
