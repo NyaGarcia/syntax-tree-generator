@@ -26,12 +26,11 @@ export class GrammarValidatorService {
       !Array.isArray(grammar.productionRules)
     ) {
       errors.push(
-        'Invalid grammar: terminals, nonTerminals, or productionRules are missing or malformed.'
+        'Gramática inválida: faltan símbolos terminales, no terminales o reglas de producción o tienen un formato incorrecto.'
       );
       return { errors };
     }
 
-    // Step 1: Deduplicate terminals and nonTerminals
     const updatedTerminals = [...new Set<string>(grammar.terminals)];
     const updatedNonTerminals = [...new Set<string>(grammar.nonTerminals)];
 
@@ -47,22 +46,31 @@ export class GrammarValidatorService {
     grammar.productionRules.forEach((rule: any, index: number) => {
       const left = rule.leftProductionRule;
 
+      if (!Array.isArray(rule.rightProductionRule)) {
+        errors.push(
+          `Error en la regla nº ${index}: el campo \'rightProductionRule\' debe ser un array.`
+        );
+        return;
+      }
+
+      if (!Array.isArray(rule.leftProductionRule)) {
+        errors.push(
+          `Error en la regla nº ${index}: el campo \'leftProductionRule\' debe ser un array.`
+        );
+        return;
+      }
+
       if (typeof left !== 'string' || left.trim() === '') {
         errors.push(
-          `Rule ${index}: leftProductionRule must be a non-empty string.`
+          `Error en la regla nº ${index}: el campo \'leftProductionRule\' debe ser de tipo string, y no puede estar vacío.`
         );
         return;
       }
 
       if (!updatedNonTerminals.includes(left)) {
         errors.push(
-          `Rule ${index}: leftProductionRule "${left}" is not declared in nonTerminals.`
+          `Error en la regla nº ${index}: en el campo \'leftProductionRule\', el símbolo "${left}" no está declarado en el campo \'nonTerminals\'.`
         );
-      }
-
-      if (!Array.isArray(rule.rightProductionRule)) {
-        errors.push(`Rule ${index}: rightProductionRule must be an array.`);
-        return;
       }
 
       const updatedRight = rule.rightProductionRule.map((symbol: string) => {
@@ -73,7 +81,9 @@ export class GrammarValidatorService {
             updatedTerminals.push(EPSILON);
             validSymbols.add(EPSILON);
           } else {
-            errors.push(`Rule ${index}: Symbol "${replaced}" is not declared.`);
+            errors.push(
+              `Error en la regla nº ${index}: El símbolo "${replaced}" no ha sido declarado.`
+            );
           }
         }
 
