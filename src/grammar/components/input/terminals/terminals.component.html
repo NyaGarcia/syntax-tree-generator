@@ -3,12 +3,14 @@
     <form #symbolForm="ngForm" [formGroup]="terminalForm">
       <mat-form-field>
         <input
+          [errorStateMatcher]="matcher"
           matInput
           formControlName="symbol"
           [placeholder]="placeholder"
           (keyup.enter)="checkFormValidity(); symbolForm.resetForm()"
         />
       </mat-form-field>
+      <mat-error></mat-error>
     </form>
     <button
       mat-raised-button

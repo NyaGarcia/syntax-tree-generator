@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ShowErrorOnDirtyStateMatcher } from '../../../matchers/error-state.matcher';
 
 @Component({
   selector: 'app-terminals',
@@ -29,6 +30,7 @@ export class TerminalsComponent {
   @Input() symbols: string[];
 
   terminalForm: FormGroup;
+  matcher = new ShowErrorOnDirtyStateMatcher();
 
   @Output() formValue: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() deletedSymbol: EventEmitter<string> = new EventEmitter<string>();
