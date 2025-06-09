@@ -68,6 +68,10 @@ export class MultiSelectComponent {
         symbol ? this._filter(symbol) : this.data.slice()
       )
     );
+
+    this.symbols = [
+      ...this.symbols.filter((symbol) => this.data.includes(symbol)),
+    ];
   }
 
   add(event: MatChipInputEvent): void {
