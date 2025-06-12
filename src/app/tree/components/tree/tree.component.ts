@@ -144,6 +144,7 @@ export class TreeComponent {
     this.options = this.treeService.getOptions();
 
     this.updateNode(this.root);
+    this.resizeSVG();
   }
 
   collapse(d: any) {
