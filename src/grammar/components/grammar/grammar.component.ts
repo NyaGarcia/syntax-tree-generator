@@ -29,7 +29,7 @@ import { GrammarStateService } from '../../services/grammar-state.service';
 export class GrammarComponent {
   @Input() loadedGrammar: UnformattedGrammar;
 
-  formValue: any;
+  formValue: UnformattedGrammar;
   terminals: string[] = [];
   nonTerminals: string[] = [];
 
