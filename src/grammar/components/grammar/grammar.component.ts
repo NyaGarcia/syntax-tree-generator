@@ -3,7 +3,7 @@ import { InputComponent } from '../input/input.component';
 import { HelpDropdownComponent } from '../help-dropdown/help-dropdown.component';
 import { MatButtonModule } from '@angular/material/button';
 import { Grammar } from '../../grammar';
-import { TerminalsComponent } from '../input/terminals/terminals.component';
+import { SymbolsComponent } from '../input/symbols/symbols.component';
 import {
   ProductionRule,
   UnformattedGrammar,
@@ -20,7 +20,7 @@ import { GrammarStateService } from '../../services/grammar-state.service';
     InputComponent,
     HelpDropdownComponent,
     MatButtonModule,
-    TerminalsComponent,
+    SymbolsComponent,
     MatIconModule,
   ],
   templateUrl: './grammar.component.html',

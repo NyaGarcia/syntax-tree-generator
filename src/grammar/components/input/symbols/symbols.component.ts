@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ShowErrorOnDirtyStateMatcher } from '../../../matchers/error-state.matcher';
 
 @Component({
-  selector: 'app-terminals',
+  selector: 'app-symbols',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,10 +23,10 @@ import { ShowErrorOnDirtyStateMatcher } from '../../../matchers/error-state.matc
     ReactiveFormsModule,
     MatButtonModule,
   ],
-  templateUrl: './terminals.component.html',
-  styleUrl: './terminals.component.scss',
+  templateUrl: './symbols.component.html',
+  styleUrl: './symbols.component.scss',
 })
-export class TerminalsComponent {
+export class SymbolsComponent {
   @Input() symbols: string[];
 
   terminalForm: FormGroup;

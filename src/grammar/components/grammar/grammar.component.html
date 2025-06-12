@@ -12,24 +12,24 @@
 <div class="terminal-input">
   <div>
     <h3>No Terminales</h3>
-    <app-terminals
+    <app-symbols
       [symbols]="nonTerminals"
       [symbolType]="'no terminal'"
       [placeholder]="'S'"
       [required]="true"
       (formValue)="onNonTerminalFormEvent($event)"
       (deletedSymbol)="onDeletedNonTerminalEvent($event)"
-    ></app-terminals>
+    ></app-symbols>
   </div>
   <div>
     <h3>Terminales</h3>
-    <app-terminals
+    <app-symbols
       [symbols]="terminals"
       [symbolType]="'terminal'"
       [placeholder]="'ɛ'"
       (formValue)="onTerminalFormEvent($event)"
       (deletedSymbol)="onDeletedTerminalEvent($event)"
-    ></app-terminals>
+    ></app-symbols>
   </div>
 </div>
 <h3>Reglas de producción</h3>
