@@ -1,17 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { InputComponent } from '../input/input.component';
 import { HelpDropdownComponent } from '../help-dropdown/help-dropdown.component';
-import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import { Grammar } from '../../grammar';
-import { TreeService } from '../../../app/tree/tree.service';
 import { TerminalsComponent } from '../input/terminals/terminals.component';
 import {
   ProductionRule,
   UnformattedGrammar,
 } from '../../interfaces/production-rule.interface';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClient } from '@angular/common/http';
 import { SampleFileService } from '../../services/sample-file.service';
 import { Router } from '@angular/router';
 import { GrammarStateService } from '../../services/grammar-state.service';
