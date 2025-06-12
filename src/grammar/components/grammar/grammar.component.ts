@@ -29,7 +29,7 @@ import { GrammarStateService } from '../../services/grammar-state.service';
 export class GrammarComponent {
   @Input() loadedGrammar: UnformattedGrammar;
 
-  formValue: UnformattedGrammar;
+  unformattedGrammar: UnformattedGrammar;
   terminals: string[] = [];
   nonTerminals: string[] = [];
 
@@ -51,7 +51,7 @@ export class GrammarComponent {
   }
 
   onFormEvent(formValue: UnformattedGrammar) {
-    this.formValue = formValue;
+    this.unformattedGrammar = formValue;
     this.navigateToTree(formValue);
   }
 
