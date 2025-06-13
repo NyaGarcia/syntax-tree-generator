@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {
   MatAutocompleteModule,
