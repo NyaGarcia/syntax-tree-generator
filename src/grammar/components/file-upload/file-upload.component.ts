@@ -67,7 +67,7 @@ export class FileUploadComponent {
     );
 
     if (jsonFiles.length === 0) {
-      this.errorMessage = 'Solo se permiten archivos JSON';
+      this.errorMessage = 'Solo se permiten ficheros JSON';
     } else {
       this.errorMessage = '';
       this.fileList = [...this.fileList, ...jsonFiles];
