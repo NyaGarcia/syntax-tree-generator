@@ -10,5 +10,5 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
   styleUrl: './error-modal.component.scss',
 })
 export class ErrorModalComponent {
-  data = inject(MAT_DIALOG_DATA);
+  data: { errors: string[] } = inject(MAT_DIALOG_DATA);
 }
