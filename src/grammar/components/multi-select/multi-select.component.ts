@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { EPSILON } from '../../../app/utils/constants';
 
 @Component({
@@ -41,8 +40,6 @@ export class MultiSelectComponent {
   @Input() required: boolean = false;
 
   @ViewChild('symbolInput') symbolInput: ElementRef<HTMLInputElement>;
-
-  announcer = inject(LiveAnnouncer);
 
   constructor() {}
 
@@ -84,8 +81,6 @@ export class MultiSelectComponent {
 
     if (index >= 0) {
       this.symbols.splice(index, 1);
-
-      this.announcer.announce(`Removed ${symbol}`);
     }
   }
 
