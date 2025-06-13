@@ -74,7 +74,6 @@ export class InputComponent {
   @Output() formValue: EventEmitter<UnformattedGrammar> =
     new EventEmitter<UnformattedGrammar>();
 
-  @ViewChildren('focusInput') focusInput: QueryList<ElementRef>;
   @ViewChild('leftProductionRule') leftProductionRule: MultiSelectComponent;
   @ViewChild('rightProductionRule') rightProductionRule: MultiSelectComponent;
 
@@ -203,16 +202,6 @@ export class InputComponent {
     if (!this.firstEmission) {
       this.emitGrammar();
     }
-  }
-
-  get newRuleFormGroup(): FormGroup {
-    return new FormGroup({
-      leftProductionRule: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[A-Z]'),
-      ]),
-      rightProductionRule: new FormControl('', [Validators.pattern('^.*$')]),
-    });
   }
 
   downloadGrammar() {
