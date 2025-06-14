@@ -49,7 +49,7 @@ export class HomePageComponent {
 
     reader.onload = () => {
       try {
-        const raw = JSON.parse(reader.result as string);
+        const raw = JSON.parse(reader.result as string) as UnformattedGrammar;
 
         const validationResult: any =
           this.grammarValidatorService.validate(raw);

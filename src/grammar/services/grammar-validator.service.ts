@@ -11,7 +11,7 @@ import {
 export class GrammarValidatorService {
   constructor() {}
 
-  validate(grammar: any): {
+  validate(grammar: UnformattedGrammar): {
     errors: string[];
     unformattedGrammar?: UnformattedGrammar;
   } {
