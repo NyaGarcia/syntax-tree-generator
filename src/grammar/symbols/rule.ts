@@ -6,7 +6,7 @@ export class Rule {
   constructor(
     private nonTerminal: NonTerminal,
     private symbols: SymbolList,
-    private value: String
+    private value: string
   ) {}
 
   getNonTerminal(): NonTerminal {
@@ -21,11 +21,11 @@ export class Rule {
     return this.symbols.getSymbols();
   }
 
-  contains(symbol: GrammarSymbol): Boolean {
+  contains(symbol: GrammarSymbol): boolean {
     return this.nonTerminal.equals(symbol) || this.symbols.includes(symbol);
   }
 
-  containsValue(value: String): Boolean {
+  containsValue(value: string): boolean {
     return (
       this.nonTerminal.contains(value) || this.symbols.includesValue(value)
     );
