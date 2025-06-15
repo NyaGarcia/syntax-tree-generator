@@ -4,10 +4,12 @@ export class SymbolList {
   constructor(private symbols: GrammarSymbol[]) {}
 
   equals(symbolList: SymbolList) {
-    this.symbols.length === symbolList.length &&
+    return (
+      this.symbols.length === symbolList.length &&
       this.symbols.every((symbol, i) =>
         symbol.equals(symbolList.getSymbols()[i])
-      );
+      )
+    );
   }
 
   get length() {
