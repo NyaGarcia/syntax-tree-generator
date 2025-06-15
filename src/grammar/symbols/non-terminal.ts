@@ -1,4 +1,4 @@
-import { GrammarSymbol } from './grammar-symbol.interface';
+import { GrammarSymbol } from '../interfaces/grammar-symbol.interface';
 
 export class NonTerminal implements GrammarSymbol {
   private nextProductionRulesIds: number[];

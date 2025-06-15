@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { TreeService } from '../../tree.service';
 import { OptionsComponent } from '../options/options.component';
 import { Rule } from '../../../../grammar/symbols/rule';
-import { GrammarSymbol } from '../../../../grammar/symbols/grammar-symbol.interface';
+import { GrammarSymbol } from '../../../../grammar/interfaces/grammar-symbol.interface';
 import { TreeNode } from '../../../utils/tree-node';
 import { CommonModule } from '@angular/common';
 import { v7 } from 'uuid';

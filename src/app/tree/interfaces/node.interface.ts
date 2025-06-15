@@ -1,8 +1,7 @@
-import { GrammarSymbol } from "../../../grammar/symbols/grammar-symbol.interface";
-
+import { GrammarSymbol } from '../../../grammar/interfaces/grammar-symbol.interface';
 
 export interface Node {
-    symbol: GrammarSymbol;
-    children: Node[];
-    parent: Node | null;
+  symbol: GrammarSymbol;
+  children: Node[];
+  parent: Node | null;
 }

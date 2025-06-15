@@ -3,7 +3,7 @@ import { Grammar } from '../../grammar/grammar';
 import { NonTerminal } from '../../grammar/symbols/non-terminal';
 import { Rule } from '../../grammar/symbols/rule';
 import { Stack } from '../utils/stack';
-import { GrammarSymbol } from '../../grammar/symbols/grammar-symbol.interface';
+import { GrammarSymbol } from '../../grammar/interfaces/grammar-symbol.interface';
 import { TreeNode } from '../utils/tree-node';
 import { EPSILON } from '../utils/constants';
 import { Terminal } from '../../grammar/symbols/terminal';
