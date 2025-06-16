@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Grammar } from '../../grammar/grammar';
 import { NonTerminal } from '../../grammar/symbols/non-terminal';
 import { Rule } from '../../grammar/symbols/rule';
-import { Stack } from '../utils/stack';
+import { Stack } from './classes/stack';
 import { GrammarSymbol } from '../../grammar/interfaces/grammar-symbol.interface';
 import { TreeNode } from './interfaces/tree-node';
 
