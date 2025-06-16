@@ -127,13 +127,6 @@ export class Grammar {
     );
   }
 
-  private addTerminals(terminals: string[]) {
-    const filteredTerminals = this.filterDuplicates(terminals);
-    this.terminals = filteredTerminals.map(
-      (terminal) => new Terminal(terminal)
-    );
-  }
-
   private addTerminal(terminal: Terminal) {
     this.terminals = [...this.terminals, terminal];
   }

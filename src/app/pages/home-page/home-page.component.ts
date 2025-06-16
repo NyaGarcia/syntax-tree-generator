@@ -19,11 +19,9 @@ import { GrammarStateService } from '../../../grammar/services/grammar-state.ser
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-  title = 'syntax-tree-generator';
   grammar: Grammar;
   loadedGrammar: UnformattedGrammar;
   selectedTabIndex: number = 0;
-  displayTree: boolean = false;
 
   validationErrors: string[] = [];
   dialog = inject(MatDialog);
@@ -43,8 +41,6 @@ export class HomePageComponent {
   }
 
   loadFile(file: File) {
-    this.displayTree = false;
-
     const reader = new FileReader();
 
     reader.onload = () => {

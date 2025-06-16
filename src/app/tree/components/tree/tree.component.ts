@@ -5,7 +5,7 @@ import { TreeService } from '../../tree.service';
 import { OptionsComponent } from '../options/options.component';
 import { Rule } from '../../../../grammar/symbols/rule';
 import { GrammarSymbol } from '../../../../grammar/interfaces/grammar-symbol.interface';
-import { TreeNode } from '../../../utils/tree-node';
+import { TreeNode } from '../../interfaces/tree-node';
 import { CommonModule } from '@angular/common';
 import { v7 } from 'uuid';
 import { MatButtonModule } from '@angular/material/button';
