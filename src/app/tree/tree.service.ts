@@ -14,8 +14,6 @@ export class TreeService {
   private currentNode: any;
   private expandableNodes: Stack<TreeNode<GrammarSymbol>>;
   private expandedNodes: Stack<TreeNode<GrammarSymbol>>;
-
-  private derivedTerminals: Stack<TreeNode<GrammarSymbol>>;
   private derivedString: string = '';
 
   isExpandedNodesEmpty = signal<boolean>(true);
@@ -25,8 +23,6 @@ export class TreeService {
   undo() {
     const previousNode = this.expandedNodes.pop()!;
     this.currentNode = previousNode;
-
-    //this.derivedString = this.derivedString.slice(0, -1);
 
     this.updateExpandedNodes();
   }
