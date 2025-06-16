@@ -5,8 +5,6 @@ import { Rule } from '../../grammar/symbols/rule';
 import { Stack } from '../utils/stack';
 import { GrammarSymbol } from '../../grammar/interfaces/grammar-symbol.interface';
 import { TreeNode } from '../utils/tree-node';
-import { EPSILON } from '../utils/constants';
-import { Terminal } from '../../grammar/symbols/terminal';
 
 @Injectable({
   providedIn: 'root',
