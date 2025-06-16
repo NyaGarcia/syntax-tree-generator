@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, Signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { TreeLayout, hierarchy } from 'd3';
 import * as d3 from 'd3';
 import { TreeService } from '../../tree.service';
@@ -14,8 +14,6 @@ import { Grammar } from '../../../../grammar/grammar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { EPSILON } from '../../../utils/constants';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import { Terminal } from '../../../../grammar/symbols/terminal';
 import { NonTerminal } from '../../../../grammar/symbols/non-terminal';
 import { GrammarStateService } from '../../../../grammar/services/grammar-state.service';
@@ -46,18 +44,18 @@ export class TreeComponent {
 
   root: any;
   tree: TreeLayout<HierarchyDatum>;
-  treeData: any;
+  treeData: d3.HierarchyPointNode<HierarchyDatum>;
   svg: any;
 
   height: number;
   width: number;
-  margin: any = { top: 80, bottom: 80, left: 200, right: 90 };
+  margin = { top: 80, bottom: 80, left: 200, right: 90 };
   duration: number = 750;
   horizontalSeparationBetweenNodes: number = 5;
   verticalSeparationBetweenNodes: number = 5;
   nodeTextDistanceY: string = '-5px';
   nodeTextDistanceX: number = 5;
-  nodes: any[];
+  nodes: TreeNode<GrammarSymbol>[];
   links: any;
 
   options: Rule[];
