@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ShowErrorOnDirtyStateMatcher } from '../../../matchers/error-state.matcher';
+import { EPSILON } from '../../../../app/utils/constants';
 
 @Component({
   selector: 'app-symbols',
@@ -62,7 +63,7 @@ export class SymbolsComponent {
   }
 
   addTerminal() {
-    const value = this.terminalForm.get('symbol')?.value || 'ɛ';
+    const value = this.terminalForm.get('symbol')?.value || EPSILON;
 
     if (!this.symbols.includes(value)) {
       this.symbols = [...this.symbols, value];
