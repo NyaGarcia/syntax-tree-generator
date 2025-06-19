@@ -53,13 +53,6 @@ export class GrammarValidatorService {
         return;
       }
 
-      if (!Array.isArray(rule.leftProductionRule)) {
-        errors.push(
-          `Error en la regla nº ${index}: el campo \'leftProductionRule\' debe ser un array.`
-        );
-        return;
-      }
-
       if (typeof left !== 'string' || left.trim() === '') {
         errors.push(
           `Error en la regla nº ${index}: el campo \'leftProductionRule\' debe ser de tipo string, y no puede estar vacío.`
