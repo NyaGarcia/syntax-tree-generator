@@ -184,15 +184,24 @@ export class InputComponent {
     const leftProductionRule = this.leftProductionRule.value[0];
     const rightProductionRule = this.formatRightProductionRule();
 
-    this.productionRules = [
-      ...this.productionRules,
-      { leftProductionRule, rightProductionRule },
-    ];
+    const ruleExists = this.productionRules.some(
+      (rule) =>
+        rule.leftProductionRule === leftProductionRule &&
+        JSON.stringify(rule.rightProductionRule) ===
+          JSON.stringify(rightProductionRule)
+    );
 
-    this.clearProductionRules();
+    if (!ruleExists) {
+      this.productionRules = [
+        ...this.productionRules,
+        { leftProductionRule, rightProductionRule },
+      ];
 
-    if (!this.firstEmission) {
-      this.emitGrammar();
+      this.clearProductionRules();
+
+      if (!this.firstEmission) {
+        this.emitGrammar();
+      }
     }
   }
 
